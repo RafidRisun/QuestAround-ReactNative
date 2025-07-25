@@ -1,4 +1,13 @@
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import {
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 const data = [
   {
@@ -7,6 +16,7 @@ const data = [
     description: "Help me clean up the park!",
     reward: "100 Taka",
     location: [23.749907, 90.41976],
+    iconName: "leaf", // cleaning, environment
   },
   {
     id: 2,
@@ -14,6 +24,7 @@ const data = [
     description: "Help me with my homework!",
     reward: "200 Taka",
     location: [23.749023, 90.422419],
+    iconName: "book", // homework
   },
   {
     id: 3,
@@ -21,6 +32,7 @@ const data = [
     description: "Help me find my lost dog!",
     reward: "50 Taka",
     location: [23.75, 90.42],
+    iconName: "paw", // dog
   },
   {
     id: 4,
@@ -28,6 +40,7 @@ const data = [
     description: "Help me with my shopping!",
     reward: "100 Taka",
     location: [23.748, 90.421],
+    iconName: "shopping-cart", // shopping
   },
   {
     id: 5,
@@ -35,6 +48,7 @@ const data = [
     description: "Help me with my garden!",
     reward: "150 Taka",
     location: [23.747, 90.42],
+    iconName: "seedling", // garden
   },
   {
     id: 6,
@@ -42,32 +56,49 @@ const data = [
     description: "Help me with my cooking!",
     reward: "80 Taka",
     location: [23.746, 90.419],
+    iconName: "kitchen-set", // cooking
   },
 ];
 
 const QuestListComponent = () => {
   return (
     <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#96c294", "#506150ff"]}
+        style={styles.gradient}
+      />
       <TextInput
         style={styles.input}
         placeholder="Search for Quests..."
-        placeholderTextColor="#514346"
+        placeholderTextColor="#475C46"
       />
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={{ paddingBottom: 60 }}
         renderItem={({ item }) => (
           <View style={styles.list}>
-            {/* <Text style={{ fontSize: 14, fontWeight: "bold" }}>
-              {item.title}
-            </Text> */}
-            <Text>{item.description}</Text>
-            <Text style={{ fontSize: 10, color: "grey" }}>
-              Reward: {item.reward}
-            </Text>
+            <FontAwesome name={item.iconName} size={14} color="white" />
+            <View style={styles.textContainer}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                {item.description}
+              </Text>
+              <Text style={{ fontSize: 10, color: "white" }}>
+                Reward: {item.reward}
+              </Text>
+            </View>
           </View>
         )}
       />
+      <View style={styles.bottomBar}>
+        <Pressable style={styles.postButton}>
+          <Text style={{ color: "white" }}>Post a Quest!</Text>
+        </Pressable>
+        <Pressable style={styles.goToQuestbutton}>
+          <Text style={{ color: "white" }}>Go to Quest!</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -78,9 +109,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "white",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    backgroundColor: "transparent",
     padding: 20,
     paddingTop: 35,
     height: "40%",
@@ -91,25 +120,58 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
   },
+  gradient: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+  },
   input: {
+    backgroundColor: "white",
+    color: "black",
     padding: 8,
     paddingLeft: 20,
     borderWidth: 0.5,
-    borderBlockColor: "#847376",
-    borderRadius: 50,
+    borderColor: "#475C46",
+    borderRadius: 15,
     marginBottom: 10,
     height: 40,
     width: "100%",
   },
   list: {
-    padding: 8,
+    padding: 10,
     paddingLeft: 20,
-    borderLeftWidth: 0.25,
-    //borderRightWidth: 0.25,
-    //borderWidth: 0.25,
-    borderColor: "#847376",
-    borderRadius: 50,
+    borderRadius: 15,
     marginVertical: 4,
+    backgroundColor: "#84aa82ff",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  bottomBar: {
+    position: "absolute",
+    bottom: 30,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    //justifyContent: "space-between",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 70,
+  },
+  postButton: {
+    backgroundColor: "#5B765B",
+    padding: 15,
+    borderRadius: 15,
+  },
+  goToQuestbutton: {
+    backgroundColor: "#E84476",
+    padding: 15,
+    borderRadius: 15,
+    display: "none", // Hide this button for now
   },
 });
 

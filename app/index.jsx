@@ -1,4 +1,3 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, View } from "react-native";
 import MainMapComponent from "./components/MainMapComponent";
 import QuestListComponent from "./components/QuestListComponent";
@@ -6,11 +5,6 @@ import QuestListComponent from "./components/QuestListComponent";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={["#96c294", "#475c46"]}
-        style={styles.background}
-      />
       <MainMapComponent />
       <QuestListComponent />
     </View>
