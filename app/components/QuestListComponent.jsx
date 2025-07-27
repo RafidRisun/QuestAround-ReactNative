@@ -1,5 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useEffect, useRef } from "react";
 import {
   FlatList,
   Pressable,
@@ -9,58 +10,40 @@ import {
   View,
 } from "react-native";
 
-const data = [
-  {
-    id: 1,
-    title: "Quest 1",
-    description: "Help me clean up the park!",
-    reward: "100 Taka",
-    location: [23.749907, 90.41976],
-    iconName: "leaf", // cleaning, environment
-  },
-  {
-    id: 2,
-    title: "Quest 2",
-    description: "Help me with my homework!",
-    reward: "200 Taka",
-    location: [23.749023, 90.422419],
-    iconName: "book", // homework
-  },
-  {
-    id: 3,
-    title: "Quest 3",
-    description: "Help me find my lost dog!",
-    reward: "50 Taka",
-    location: [23.75, 90.42],
-    iconName: "paw", // dog
-  },
-  {
-    id: 4,
-    title: "Quest 4",
-    description: "Help me with my shopping!",
-    reward: "100 Taka",
-    location: [23.748, 90.421],
-    iconName: "shopping-cart", // shopping
-  },
-  {
-    id: 5,
-    title: "Quest 5",
-    description: "Help me with my garden!",
-    reward: "150 Taka",
-    location: [23.747, 90.42],
-    iconName: "seedling", // garden
-  },
-  {
-    id: 6,
-    title: "Quest 6",
-    description: "Help me with my cooking!",
-    reward: "80 Taka",
-    location: [23.746, 90.419],
-    iconName: "kitchen-set", // cooking
-  },
-];
+const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
+  const questListRef = useRef(null);
 
-const QuestListComponent = () => {
+  const onQuestPress = (quest) => {
+    setSelectedQuest(quest.id);
+    if (questListRef.current) {
+      questListRef.current.scrollToIndex({
+        index: data.findIndex((q) => q.id === quest.id),
+        animated: true,
+      });
+    }
+    quest.style = {
+      backgroundColor: "white",
+      color: "#475C46",
+      fontWeight: "bold",
+    };
+  };
+
+  useEffect(() => {
+    if (selectedQuestID && questListRef.current) {
+      const index = data.findIndex((q) => q.id === selectedQuestID);
+      if (index !== -1) {
+        questListRef.current.scrollToIndex({ index, animated: true });
+      }
+    }
+  }, [selectedQuestID]);
+  if (!data || data.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text>No quests available</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -77,10 +60,11 @@ const QuestListComponent = () => {
         data={data}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ paddingBottom: 60 }}
+        ref={questListRef}
         renderItem={({ item }) => (
-          <View style={styles.list}>
+          <Pressable style={styles.list} onPress={() => onQuestPress(item)}>
             <FontAwesome name={item.iconName} size={14} color="white" />
-            <View style={styles.textContainer}>
+            <View>
               <Text style={{ color: "white", fontWeight: "bold" }}>
                 {item.description}
               </Text>
@@ -88,7 +72,7 @@ const QuestListComponent = () => {
                 Reward: {item.reward}
               </Text>
             </View>
-          </View>
+          </Pressable>
         )}
       />
       <View style={styles.bottomBar}>
@@ -176,3 +160,54 @@ const styles = StyleSheet.create({
 });
 
 export default QuestListComponent;
+
+const data = [
+  {
+    id: 1,
+    title: "Quest 1",
+    description: "Help me clean up the park!",
+    reward: "100 Taka",
+    location: [23.749907, 90.41976],
+    iconName: "leaf", // cleaning, environment
+  },
+  {
+    id: 2,
+    title: "Quest 2",
+    description: "Help me with my homework!",
+    reward: "200 Taka",
+    location: [23.749023, 90.422419],
+    iconName: "book", // homework
+  },
+  {
+    id: 3,
+    title: "Quest 3",
+    description: "Help me find my lost dog!",
+    reward: "50 Taka",
+    location: [23.75, 90.42],
+    iconName: "paw", // dog
+  },
+  {
+    id: 4,
+    title: "Quest 4",
+    description: "Help me with my shopping!",
+    reward: "100 Taka",
+    location: [23.748, 90.421],
+    iconName: "shopping-cart", // shopping
+  },
+  {
+    id: 5,
+    title: "Quest 5",
+    description: "Help me with my garden!",
+    reward: "150 Taka",
+    location: [23.747, 90.42],
+    iconName: "seedling", // garden
+  },
+  {
+    id: 6,
+    title: "Quest 6",
+    description: "Help me with my cooking!",
+    reward: "80 Taka",
+    location: [23.746, 90.419],
+    iconName: "kitchen-set", // cooking
+  },
+];
