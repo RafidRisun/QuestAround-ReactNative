@@ -21,11 +21,6 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
         animated: true,
       });
     }
-    quest.style = {
-      backgroundColor: "white",
-      color: "#475C46",
-      fontWeight: "bold",
-    };
   };
 
   useEffect(() => {
@@ -36,6 +31,7 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
       }
     }
   }, [selectedQuestID]);
+
   if (!data || data.length === 0) {
     return (
       <View style={styles.container}>
@@ -62,24 +58,53 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
         contentContainerStyle={{ paddingBottom: 60 }}
         ref={questListRef}
         renderItem={({ item }) => (
-          <Pressable style={styles.list} onPress={() => onQuestPress(item)}>
-            <FontAwesome name={item.iconName} size={14} color="white" />
+          <Pressable
+            style={
+              item.id === selectedQuestID ? styles.listSelected : styles.list
+            }
+            onPress={() => onQuestPress(item)}
+          >
+            <FontAwesome
+              name={item.iconName}
+              color={item.id === selectedQuestID ? "#506150ff" : "white"}
+              size={14}
+            />
             <View>
-              <Text style={{ color: "white", fontWeight: "bold" }}>
+              <Text
+                style={
+                  item.id === selectedQuestID
+                    ? { color: "#506150ff", fontWeight: "bold" }
+                    : { color: "white", fontWeight: "bold" }
+                }
+              >
                 {item.description}
               </Text>
-              <Text style={{ fontSize: 10, color: "white" }}>
+              <Text
+                style={
+                  item.id === selectedQuestID
+                    ? { color: "#506150ff", fontSize: 10 }
+                    : { color: "white", fontSize: 10 }
+                }
+              >
                 Reward: {item.reward}
               </Text>
             </View>
           </Pressable>
         )}
       />
-      <View style={styles.bottomBar}>
+      <View
+        style={selectedQuestID ? styles.bottomBarSelected : styles.bottomBar}
+      >
         <Pressable style={styles.postButton}>
           <Text style={{ color: "white" }}>Post a Quest!</Text>
         </Pressable>
-        <Pressable style={styles.goToQuestbutton}>
+        <Pressable
+          style={
+            selectedQuestID
+              ? styles.goToQuestbuttonSelected
+              : styles.goToQuestbutton
+          }
+        >
           <Text style={{ color: "white" }}>Go to Quest!</Text>
         </Pressable>
       </View>
@@ -135,14 +160,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
   },
+  listSelected: {
+    padding: 10,
+    paddingLeft: 20,
+    borderRadius: 15,
+    marginVertical: 4,
+    backgroundColor: "white",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
   bottomBar: {
     position: "absolute",
     bottom: 30,
     left: 0,
     right: 0,
     flexDirection: "row",
-    //justifyContent: "space-between",
     justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 70,
+  },
+  bottomBarSelected: {
+    position: "absolute",
+    bottom: 30,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 70,
   },
@@ -155,7 +199,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#E84476",
     padding: 15,
     borderRadius: 15,
-    display: "none", // Hide this button for now
+    display: "none",
+  },
+  goToQuestbuttonSelected: {
+    backgroundColor: "#E84476",
+    padding: 15,
+    borderRadius: 15,
   },
 });
 

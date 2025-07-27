@@ -6,6 +6,8 @@ import useLocation from "../hooks/useLocation";
 const MainMapComponent = ({ selectedQuestID, setSelectedQuest }) => {
   const { latitude, longitude, response } = useLocation();
   const mapRef = useRef(null);
+  const markerRefs = useRef({});
+  const markerPressedRef = useRef(false); // <-- add this
 
   useEffect(() => {
     if (selectedQuestID && mapRef.current) {
@@ -19,10 +21,23 @@ const MainMapComponent = ({ selectedQuestID, setSelectedQuest }) => {
         });
       }
     }
+    if (selectedQuestID && markerRefs.current[selectedQuestID]) {
+      markerRefs.current[selectedQuestID].showCallout();
+    }
   }, [selectedQuestID]);
 
   const onMarkerPress = (quest) => {
+    markerPressedRef.current = true; // mark that marker was pressed
     setSelectedQuest(quest.id);
+  };
+
+  const onMapPress = () => {
+    if (markerPressedRef.current) {
+      // skip clearing selection, reset flag
+      markerPressedRef.current = false;
+      return;
+    }
+    setSelectedQuest(null);
   };
 
   if (!latitude || !longitude) {
@@ -49,17 +64,25 @@ const MainMapComponent = ({ selectedQuestID, setSelectedQuest }) => {
         longitudeDelta: 0.015,
       }}
       ref={mapRef}
+      onPress={onMapPress}
     >
-      <Marker coordinate={{ latitude, longitude }} />
+      <Marker
+        coordinate={{ latitude, longitude }}
+        description="You are here!"
+      />
 
       {data.map((quest) => (
         <Marker
+          ref={(ref) => {
+            markerRefs.current[quest.id] = ref;
+          }}
           key={quest.id}
           coordinate={{
             latitude: quest.location[0],
             longitude: quest.location[1],
           }}
           onPress={() => onMarkerPress(quest)}
+          description={quest.description}
         />
       ))}
     </MapView>
@@ -71,7 +94,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   map: {
-    //flex: 1,
     height: "70%",
   },
 });
