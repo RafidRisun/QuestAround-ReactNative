@@ -1,5 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import {
   FlatList,
@@ -12,6 +13,7 @@ import {
 
 const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
   const questListRef = useRef(null);
+  const router = useRouter();
 
   const onQuestPress = (quest) => {
     setSelectedQuest(quest.id);
@@ -104,6 +106,17 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
               ? styles.goToQuestbuttonSelected
               : styles.goToQuestbutton
           }
+          onPress={() => {
+            router.push({
+              pathname: "/quest/[id]",
+              params: {
+                id: selectedQuestID,
+                data: JSON.stringify(
+                  data.find((q) => q.id === selectedQuestID)
+                ),
+              },
+            });
+          }}
         >
           <Text style={{ color: "white" }}>Go to Quest!</Text>
         </Pressable>
