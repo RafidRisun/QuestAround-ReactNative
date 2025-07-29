@@ -11,12 +11,12 @@ import {
   View,
 } from "react-native";
 
-const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
+const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   const questListRef = useRef(null);
   const router = useRouter();
-
+  //data = null;
   const onQuestPress = (quest) => {
-    setSelectedQuest(quest.id);
+    setSelectedQuest(quest);
     if (questListRef.current) {
       questListRef.current.scrollToIndex({
         index: data.findIndex((q) => q.id === quest.id),
@@ -26,18 +26,25 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
   };
 
   useEffect(() => {
-    if (selectedQuestID && questListRef.current) {
-      const index = data.findIndex((q) => q.id === selectedQuestID);
+    if (selectedQuest && questListRef.current) {
+      const index = data.findIndex((q) => q.id === selectedQuest.id);
       if (index !== -1) {
         questListRef.current.scrollToIndex({ index, animated: true });
       }
     }
-  }, [selectedQuestID]);
+  }, [selectedQuest]);
 
   if (!data || data.length === 0) {
     return (
       <View style={styles.container}>
-        <Text>No quests available</Text>
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["#96c294", "#506150ff"]}
+          style={styles.gradient}
+        />
+        <Text style={{ color: "white", fontSize: "16", fontWeight: "bold" }}>
+          No quests available
+        </Text>
       </View>
     );
   }
@@ -54,6 +61,16 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
         placeholder="Search for Quests..."
         placeholderTextColor="#475C46"
       />
+      <Text
+        style={{
+          color: "white",
+          paddingLeft: 10,
+          margin: 6,
+          fontWeight: "bold",
+        }}
+      >
+        Quests Nearby!
+      </Text>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
@@ -62,28 +79,28 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
         renderItem={({ item }) => (
           <Pressable
             style={
-              item.id === selectedQuestID ? styles.listSelected : styles.list
+              item.id === selectedQuest?.id ? styles.listSelected : styles.list
             }
             onPress={() => onQuestPress(item)}
           >
             <FontAwesome
               name={item.iconName}
-              color={item.id === selectedQuestID ? "#506150ff" : "white"}
+              color={item.id === selectedQuest?.id ? "#506150ff" : "white"}
               size={14}
             />
             <View>
               <Text
                 style={
-                  item.id === selectedQuestID
+                  item.id === selectedQuest?.id
                     ? { color: "#506150ff", fontWeight: "bold" }
                     : { color: "white", fontWeight: "bold" }
                 }
               >
-                {item.description}
+                {item.title}
               </Text>
               <Text
                 style={
-                  item.id === selectedQuestID
+                  item.id === selectedQuest?.id
                     ? { color: "#506150ff", fontSize: 10 }
                     : { color: "white", fontSize: 10 }
                 }
@@ -94,25 +111,23 @@ const QuestListComponent = ({ selectedQuestID, setSelectedQuest }) => {
           </Pressable>
         )}
       />
-      <View
-        style={selectedQuestID ? styles.bottomBarSelected : styles.bottomBar}
-      >
+      <View style={selectedQuest ? styles.bottomBarSelected : styles.bottomBar}>
         <Pressable style={styles.postButton}>
           <Text style={{ color: "white" }}>Post a Quest!</Text>
         </Pressable>
         <Pressable
           style={
-            selectedQuestID
+            selectedQuest
               ? styles.goToQuestbuttonSelected
               : styles.goToQuestbutton
           }
           onPress={() => {
-            router.push({
+            router.navigate({
               pathname: "/quest/[id]",
               params: {
-                id: selectedQuestID,
+                id: selectedQuest.id,
                 data: JSON.stringify(
-                  data.find((q) => q.id === selectedQuestID)
+                  data.find((q) => q.id === selectedQuest.id)
                 ),
               },
             });
@@ -134,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     padding: 20,
     paddingTop: 35,
-    height: "40%",
+    height: "45%",
     boxSizing: "border-box",
     shadowColor: "black",
     shadowOffset: { width: 0, height: 5 },
@@ -159,7 +174,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#475C46",
     borderRadius: 15,
-    marginBottom: 10,
+    marginBottom: 0,
     height: 40,
     width: "100%",
   },
@@ -222,54 +237,3 @@ const styles = StyleSheet.create({
 });
 
 export default QuestListComponent;
-
-const data = [
-  {
-    id: 1,
-    title: "Quest 1",
-    description: "Help me clean up the park!",
-    reward: "100 Taka",
-    location: [23.749907, 90.41976],
-    iconName: "leaf", // cleaning, environment
-  },
-  {
-    id: 2,
-    title: "Quest 2",
-    description: "Help me with my homework!",
-    reward: "200 Taka",
-    location: [23.749023, 90.422419],
-    iconName: "book", // homework
-  },
-  {
-    id: 3,
-    title: "Quest 3",
-    description: "Help me find my lost dog!",
-    reward: "50 Taka",
-    location: [23.75, 90.42],
-    iconName: "paw", // dog
-  },
-  {
-    id: 4,
-    title: "Quest 4",
-    description: "Help me with my shopping!",
-    reward: "100 Taka",
-    location: [23.748, 90.421],
-    iconName: "shopping-cart", // shopping
-  },
-  {
-    id: 5,
-    title: "Quest 5",
-    description: "Help me with my garden!",
-    reward: "150 Taka",
-    location: [23.747, 90.42],
-    iconName: "seedling", // garden
-  },
-  {
-    id: 6,
-    title: "Quest 6",
-    description: "Help me with my cooking!",
-    reward: "80 Taka",
-    location: [23.746, 90.419],
-    iconName: "kitchen-set", // cooking
-  },
-];

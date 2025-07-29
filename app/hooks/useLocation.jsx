@@ -19,7 +19,7 @@ const useLocation = () => {
       {
         accuracy: Location.Accuracy.High,
         //timeInterval: 1000, // update every second
-        distanceInterval: 5,
+        distanceInterval: 10, // update every 10 meters
       },
       (location) => {
         const lat = location.coords.latitude;
