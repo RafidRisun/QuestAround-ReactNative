@@ -72,7 +72,7 @@ export default function QuestDetails() {
           <Text
             style={{ fontWeight: "bold", color: "#506150ff", fontSize: 12 }}
           >
-            Posted By:
+            Quest Posted by:
           </Text>
           <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
             {quest.username}
@@ -99,11 +99,11 @@ export default function QuestDetails() {
           data={quest.comments}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <View style={{ marginTop: 10 }}>
-              <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
-                {item.username}:
-              </Text>
+            <View style={{ marginVertical: 5 }}>
               <Text style={{ color: "#506150ff" }}>{item.text}</Text>
+              <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+                -{item.username}
+              </Text>
             </View>
           )}
         />
@@ -152,14 +152,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   bottomBar: {
-    position: "absolute",
-    bottom: 30,
+    //position: "absolute",
+    bottom: 10,
     left: 0,
     right: 0,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 70,
+    paddingHorizontal: 40,
+    marginTop: 15,
   },
   backButton: {
     backgroundColor: "white",
@@ -197,11 +198,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginTop: 10,
-    height: 140,
+    //height: 140,
+    flex: 1, // <-- allow FlatList to expand and scroll
     paddingBottom: 0,
   },
   input: {
-    backgroundColor: "white",
+    backgroundColor: "#84aa82ff",
     color: "black",
     padding: 8,
     paddingLeft: 20,
