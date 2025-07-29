@@ -48,6 +48,8 @@ const data = [
       { username: "helper1", text: "Excited to join!" },
       { username: "natureFan", text: "Will bring gloves and bags." },
       { username: "mathWhiz", text: "I can help after school." },
+      { username: "mathWhiz", text: "I can help after school." },
+      { username: "mathWhiz", text: "I can help after school." },
     ],
     status: "Available",
   },

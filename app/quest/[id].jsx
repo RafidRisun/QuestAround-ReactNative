@@ -4,10 +4,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import {
   FlatList,
+  Keyboard,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 
@@ -23,63 +25,72 @@ export default function QuestDetails() {
         colors={["#96c294", "#506150ff"]}
         style={styles.gradient}
       />
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
-          {quest.title}
-        </Text>
-        <FontAwesome name={quest.iconName} color="white" size={20} />
-      </View>
-      <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
-        Reward: {quest.reward}
-      </Text>
-      <Text
-        style={{
-          color: "white",
-          fontSize: 14,
-          marginTop: 10,
-          textAlign: "justify",
-        }}
-      >
-        {quest.description}
-      </Text>
-      <View
-        style={{
-          marginTop: 20,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <View style={{ flexDirection: "row", gap: 5 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>
-            Posted On:{" "}
-          </Text>
-          <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
-        </View>
-        <View style={{ flexDirection: "row", gap: 5 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Ends On: </Text>
-          <Text style={{ color: "white" }}>{quest.endDate}</Text>
-        </View>
-      </View>
-      <View style={styles.userCard}>
-        <Image
-          style={styles.image}
-          source={require("../../assets/images/image.png")}
-          //placeholder={}
-          contentFit="cover"
-          transition={1000}
-        />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View>
-          <Text
-            style={{ fontWeight: "bold", color: "#506150ff", fontSize: 12 }}
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            Quest Posted by:
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
+              {quest.title}
+            </Text>
+            <FontAwesome name={quest.iconName} color="white" size={20} />
+          </View>
+          <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
+            Reward: {quest.reward}
           </Text>
-          <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
-            {quest.username}
+          <Text
+            style={{
+              color: "white",
+              fontSize: 14,
+              marginTop: 10,
+              textAlign: "justify",
+            }}
+          >
+            {quest.description}
           </Text>
-          <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View style={{ flexDirection: "row", gap: 5 }}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                Posted On:{" "}
+              </Text>
+              <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
+            </View>
+            <View style={{ flexDirection: "row", gap: 5 }}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                Ends On:{" "}
+              </Text>
+              <Text style={{ color: "white" }}>{quest.endDate}</Text>
+            </View>
+          </View>
+          <View style={styles.userCard}>
+            <Image
+              style={styles.image}
+              source={require("../../assets/images/image.png")}
+              //placeholder={}
+              contentFit="cover"
+              transition={1000}
+            />
+            <View>
+              <Text
+                style={{ fontWeight: "bold", color: "#506150ff", fontSize: 12 }}
+              >
+                Quest Posted by:
+              </Text>
+              <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+                {quest.username}
+              </Text>
+              <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
+            </View>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
+
       <View style={styles.commentCard}>
         <Text
           style={{
@@ -128,6 +139,7 @@ export default function QuestDetails() {
 const styles = StyleSheet.create({
   container: {
     height: "63%",
+    //flex: 1,
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -204,7 +216,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#84aa82ff",
-    color: "black",
+    color: "white",
     padding: 8,
     paddingLeft: 20,
     borderColor: "#475C46",
