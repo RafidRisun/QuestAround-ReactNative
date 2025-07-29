@@ -1,6 +1,15 @@
+import { FontAwesome } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function QuestDetails() {
   const { id, data } = useLocalSearchParams();
@@ -14,9 +23,12 @@ export default function QuestDetails() {
         colors={["#96c294", "#506150ff"]}
         style={styles.gradient}
       />
-      <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
-        {quest.title}
-      </Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
+          {quest.title}
+        </Text>
+        <FontAwesome name={quest.iconName} color="white" size={20} />
+      </View>
       <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
         Reward: {quest.reward}
       </Text>
@@ -30,19 +42,77 @@ export default function QuestDetails() {
       >
         {quest.description}
       </Text>
-
-      <View style={styles.userCard}>
-        <View style={{ marginRight: 20 }}>
-          <Text style={{ fontWeight: "bold" }}>Posted By</Text>
-          <Text style={{ fontWeight: "bold" }}>Address</Text>
-          <Text style={{ fontWeight: "bold" }}>Phone</Text>
+      <View
+        style={{
+          marginTop: 20,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <View style={{ flexDirection: "row", gap: 5 }}>
+          <Text style={{ color: "white", fontWeight: "bold" }}>
+            Posted On:{" "}
+          </Text>
+          <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
         </View>
-        <View>
-          <Text>{quest.username}</Text>
-          <Text>{quest.address}</Text>
-          <Text>{quest.phoneNumber}</Text>
+        <View style={{ flexDirection: "row", gap: 5 }}>
+          <Text style={{ color: "white", fontWeight: "bold" }}>Ends On: </Text>
+          <Text style={{ color: "white" }}>{quest.endDate}</Text>
         </View>
       </View>
+      <View style={styles.userCard}>
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/image.png")}
+          //placeholder={}
+          contentFit="cover"
+          transition={1000}
+        />
+        <View>
+          <Text
+            style={{ fontWeight: "bold", color: "#506150ff", fontSize: 12 }}
+          >
+            Posted By:
+          </Text>
+          <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+            {quest.username}
+          </Text>
+          <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
+        </View>
+      </View>
+      <View style={styles.commentCard}>
+        <Text
+          style={{
+            color: "#506150ff",
+            fontWeight: "bold",
+          }}
+        >
+          Comments
+        </Text>
+        <View
+          style={{
+            borderBottomColor: "#506150ff",
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
+        />
+        <FlatList
+          data={quest.comments}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={{ marginTop: 10 }}>
+              <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+                {item.username}:
+              </Text>
+              <Text style={{ color: "#506150ff" }}>{item.text}</Text>
+            </View>
+          )}
+        />
+      </View>
+      <TextInput
+        style={styles.input}
+        placeholder="Write a comment or Ask a question!"
+        placeholderTextColor="#475C46"
+      />
 
       <View style={styles.bottomBar}>
         <Pressable style={styles.backButton} onPress={() => router.back()}>
@@ -57,7 +127,7 @@ export default function QuestDetails() {
 }
 const styles = StyleSheet.create({
   container: {
-    height: "60%",
+    height: "63%",
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -70,7 +140,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     padding: 20,
-    paddingTop: 35,
+    paddingTop: 25,
   },
   gradient: {
     position: "absolute",
@@ -104,12 +174,42 @@ const styles = StyleSheet.create({
   userCard: {
     flexDirection: "row",
     backgroundColor: "white",
-    padding: 10,
+    padding: 20,
     borderRadius: 15,
     marginTop: 20,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
+    // shadowColor: "black",
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.3,
+    // shadowRadius: 5,
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: "#84aa82ff",
+    backgroundColor: "#96c294",
+  },
+  commentCard: {
+    backgroundColor: "white",
+    padding: 15,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    marginTop: 10,
+    height: 140,
+    paddingBottom: 0,
+  },
+  input: {
+    backgroundColor: "white",
+    color: "black",
+    padding: 8,
+    paddingLeft: 20,
+    borderColor: "#475C46",
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    marginBottom: 0,
+    height: 40,
+    width: "100%",
   },
 });

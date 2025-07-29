@@ -4,10 +4,12 @@ import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import {
   FlatList,
+  Keyboard,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 
@@ -50,93 +52,99 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        // Background Linear Gradient
-        colors={["#96c294", "#506150ff"]}
-        style={styles.gradient}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Search for Quests..."
-        placeholderTextColor="#475C46"
-      />
-      <Text
-        style={{
-          color: "white",
-          paddingLeft: 10,
-          margin: 6,
-          fontWeight: "bold",
-        }}
-      >
-        Quests Nearby!
-      </Text>
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={{ paddingBottom: 60 }}
-        ref={questListRef}
-        renderItem={({ item }) => (
-          <Pressable
-            style={
-              item.id === selectedQuest?.id ? styles.listSelected : styles.list
-            }
-            onPress={() => onQuestPress(item)}
-          >
-            <FontAwesome
-              name={item.iconName}
-              color={item.id === selectedQuest?.id ? "#506150ff" : "white"}
-              size={14}
-            />
-            <View>
-              <Text
-                style={
-                  item.id === selectedQuest?.id
-                    ? { color: "#506150ff", fontWeight: "bold" }
-                    : { color: "white", fontWeight: "bold" }
-                }
-              >
-                {item.title}
-              </Text>
-              <Text
-                style={
-                  item.id === selectedQuest?.id
-                    ? { color: "#506150ff", fontSize: 10 }
-                    : { color: "white", fontSize: 10 }
-                }
-              >
-                Reward: {item.reward}
-              </Text>
-            </View>
-          </Pressable>
-        )}
-      />
-      <View style={selectedQuest ? styles.bottomBarSelected : styles.bottomBar}>
-        <Pressable style={styles.postButton}>
-          <Text style={{ color: "white" }}>Post a Quest!</Text>
-        </Pressable>
-        <Pressable
-          style={
-            selectedQuest
-              ? styles.goToQuestbuttonSelected
-              : styles.goToQuestbutton
-          }
-          onPress={() => {
-            router.navigate({
-              pathname: "/quest/[id]",
-              params: {
-                id: selectedQuest.id,
-                data: JSON.stringify(
-                  data.find((q) => q.id === selectedQuest.id)
-                ),
-              },
-            });
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["#96c294", "#506150ff"]}
+          style={styles.gradient}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Search for Quests..."
+          placeholderTextColor="#475C46"
+        />
+        <Text
+          style={{
+            color: "white",
+            paddingLeft: 10,
+            margin: 6,
+            fontWeight: "bold",
           }}
         >
-          <Text style={{ color: "white" }}>Go to Quest!</Text>
-        </Pressable>
+          Quests Nearby!
+        </Text>
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={{ paddingBottom: 60 }}
+          ref={questListRef}
+          renderItem={({ item }) => (
+            <Pressable
+              style={
+                item.id === selectedQuest?.id
+                  ? styles.listSelected
+                  : styles.list
+              }
+              onPress={() => onQuestPress(item)}
+            >
+              <FontAwesome
+                name={item.iconName}
+                color={item.id === selectedQuest?.id ? "#506150ff" : "white"}
+                size={14}
+              />
+              <View>
+                <Text
+                  style={
+                    item.id === selectedQuest?.id
+                      ? { color: "#506150ff", fontWeight: "bold" }
+                      : { color: "white", fontWeight: "bold" }
+                  }
+                >
+                  {item.title}
+                </Text>
+                <Text
+                  style={
+                    item.id === selectedQuest?.id
+                      ? { color: "#506150ff", fontSize: 10 }
+                      : { color: "white", fontSize: 10 }
+                  }
+                >
+                  Reward: {item.reward}
+                </Text>
+              </View>
+            </Pressable>
+          )}
+        />
+        <View
+          style={selectedQuest ? styles.bottomBarSelected : styles.bottomBar}
+        >
+          <Pressable style={styles.postButton}>
+            <Text style={{ color: "white" }}>Post a Quest!</Text>
+          </Pressable>
+          <Pressable
+            style={
+              selectedQuest
+                ? styles.goToQuestbuttonSelected
+                : styles.goToQuestbutton
+            }
+            onPress={() => {
+              router.navigate({
+                pathname: "/quest/[id]",
+                params: {
+                  id: selectedQuest.id,
+                  data: JSON.stringify(
+                    data.find((q) => q.id === selectedQuest.id)
+                  ),
+                },
+              });
+            }}
+          >
+            <Text style={{ color: "white" }}>Go to Quest!</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
