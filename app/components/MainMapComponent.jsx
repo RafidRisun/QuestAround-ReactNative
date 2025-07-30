@@ -42,7 +42,7 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
 
   if (!latitude || !longitude) {
     return (
-      <View style={styles.container}>
+      <View style={styles.loadingContainer}>
         <Text>Loading Map :D</Text>
       </View>
     );
@@ -90,11 +90,12 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  loadingContainer: {
     borderRadius: 20,
   },
   map: {
-    height: "65%",
+    //height: "65%",
+    flex: 1,
   },
 });
 

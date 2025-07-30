@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import {
   FlatList,
   Keyboard,
+  KeyboardAvoidingView,
   Pressable,
   StyleSheet,
   Text,
@@ -52,8 +53,8 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <LinearGradient
           // Background Linear Gradient
           colors={["#96c294", "#506150ff"]}
@@ -77,7 +78,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
         <FlatList
           data={data}
           keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ paddingBottom: 60 }}
+          contentContainerStyle={{ paddingBottom: 80 }}
           ref={questListRef}
           renderItem={({ item }) => (
             <Pressable
@@ -143,21 +144,22 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
             <Text style={{ color: "white" }}>Go to Quest!</Text>
           </Pressable>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    //position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     backgroundColor: "transparent",
     padding: 20,
     paddingTop: 35,
-    height: "45%",
+    //height: "45%",
+    flex: 1,
     boxSizing: "border-box",
     shadowColor: "black",
     shadowOffset: { width: 0, height: 5 },

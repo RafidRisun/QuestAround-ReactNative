@@ -8,16 +8,20 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <MainMapComponent
-        selectedQuest={selectedQuest}
-        setSelectedQuest={setSelectedQuest}
-        data={data}
-      />
-      <QuestListComponent
-        selectedQuest={selectedQuest}
-        setSelectedQuest={setSelectedQuest}
-        data={data}
-      />
+      <View style={styles.mapContainer}>
+        <MainMapComponent
+          selectedQuest={selectedQuest}
+          setSelectedQuest={setSelectedQuest}
+          data={data}
+        />
+      </View>
+      <View style={styles.questContainer}>
+        <QuestListComponent
+          selectedQuest={selectedQuest}
+          setSelectedQuest={setSelectedQuest}
+          data={data}
+        />
+      </View>
     </View>
   );
 }
@@ -25,6 +29,15 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  mapContainer: {
+    height: "55%",
+    boxSizingMode: "border-box",
+  },
+  questContainer: {
+    //height: "45%",
+    flex: 1,
+    boxSizingMode: "border-box",
   },
 });
 
