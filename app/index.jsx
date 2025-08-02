@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import MainMapComponent from "./components/MainMapComponent";
 import QuestListComponent from "./components/QuestListComponent";
 
@@ -7,7 +7,7 @@ export default function Index() {
   const [selectedQuest, setSelectedQuest] = useState(null);
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View style={styles.mapContainer}>
         <MainMapComponent
           selectedQuest={selectedQuest}
@@ -22,7 +22,7 @@ export default function Index() {
           data={data}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

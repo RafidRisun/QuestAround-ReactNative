@@ -6,6 +6,7 @@ import {
   FlatList,
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -20,8 +21,12 @@ export default function QuestDetails() {
   const router = useRouter();
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.invisibleContainer}>
-      <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "flex-end" }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "margin" : "height"}
+        keyboardVerticalOffset={160} // adjust as needed
+        style={styles.container}
+      >
         <LinearGradient
           // Background Linear Gradient
           colors={["#96c294", "#506150ff"]}
@@ -141,20 +146,20 @@ export default function QuestDetails() {
             <Text style={{ color: "white" }}>Accept Quest!</Text>
           </Pressable>
         </View>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
-  invisibleContainer: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-  },
+  // invisibleContainer: {
+  //   flex: 1,
+  //   backgroundColor: "transparent",
+  // },
   container: {
     height: "63%",
     //flex: 1,
-    position: "absolute",
-    bottom: 0,
+    //position: "absolute",
+    //bottom: 0,
     left: 0,
     right: 0,
     borderTopLeftRadius: 20,
@@ -166,6 +171,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     padding: 20,
     paddingTop: 25,
+    //paddingBottom: 30,
   },
   gradient: {
     position: "absolute",
@@ -186,6 +192,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 40,
     marginTop: 15,
+    //marginBottom: 15,
   },
   backButton: {
     backgroundColor: "white",
