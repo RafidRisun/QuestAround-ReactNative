@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     boxSizingMode: "border-box",
   },
   questContainer: {
-    //height: "45%",
-    flex: 1,
+    height: "45%",
+    //flex: 1,
     boxSizingMode: "border-box",
   },
 });
@@ -65,6 +65,7 @@ const data = [
       { username: "mathWhiz", text: "I can help after school." },
     ],
     status: "Available",
+    type: "event", // Multiple people
   },
   {
     id: 2,
@@ -83,6 +84,7 @@ const data = [
     endDate: "2025-08-03",
     comments: [{ username: "mathWhiz", text: "I can help after school." }],
     status: "Available",
+    type: "quest", // Single person
   },
   {
     id: 3,
@@ -101,6 +103,7 @@ const data = [
     endDate: "2025-08-02",
     comments: [{ username: "petFriend", text: "I'll keep an eye out!" }],
     status: "Available",
+    type: "event", // Multiple people
   },
   {
     id: 4,
@@ -119,6 +122,7 @@ const data = [
     endDate: "2025-08-01",
     comments: [{ username: "strongArms", text: "I can help after work." }],
     status: "Available",
+    type: "quest", // Single person
   },
   {
     id: 5,
@@ -137,6 +141,7 @@ const data = [
     endDate: "2025-08-04",
     comments: [{ username: "plantLover", text: "I love gardening!" }],
     status: "Available",
+    type: "event", // Multiple people
   },
   {
     id: 6,
@@ -155,5 +160,27 @@ const data = [
     endDate: "2025-08-02",
     comments: [{ username: "foodie", text: "Count me in for taste testing!" }],
     status: "Available",
+    type: "event", // Multiple people
+  },
+  {
+    id: 7,
+    title: "Help me with my event!",
+    description:
+      "Looking for volunteers to help organize a community event this weekend. Tasks include setting up, managing activities, and cleaning up afterward.",
+    reward: "100 Taka",
+    location: [24.3746, 88.6004],
+    iconName: "star",
+    username: "eventOrganizer",
+    address: "Rajshahi, Bangladesh",
+    phoneNumber: "+8801612345678",
+    gender: "Male",
+    age: 30,
+    postedOn: { date: "2025-07-30", time: "11:30 AM" },
+    endDate: "2025-08-02",
+    comments: [
+      { username: "volunteer1", text: "Count me in for helping out!" },
+    ],
+    status: "Available",
+    type: "event", // Multiple people
   },
 ];

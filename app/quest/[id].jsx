@@ -2,11 +2,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useRef, useState } from "react";
 import {
+  Animated,
   FlatList,
   Keyboard,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -20,12 +20,45 @@ export default function QuestDetails() {
   const quest = data ? JSON.parse(data) : null;
   const router = useRouter();
 
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
+  const animatedMargin = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const showSub = Keyboard.addListener("keyboardDidShow", (e) => {
+      const kbHeight = e.endCoordinates?.height || 330;
+      Animated.timing(animatedMargin, {
+        toValue: kbHeight,
+        duration: 200,
+        useNativeDriver: false,
+      }).start();
+    });
+    const hideSub = Keyboard.addListener("keyboardDidHide", () => {
+      Animated.timing(animatedMargin, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: false,
+      }).start();
+    });
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
+
   return (
     <View style={{ flex: 1, justifyContent: "flex-end" }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "margin" : "height"}
-        keyboardVerticalOffset={160} // adjust as needed
-        style={styles.container}
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "50%",
+          backgroundColor: "#506150ff",
+        }}
+      ></View>
+      <Animated.View
+        style={[styles.container, { marginBottom: animatedMargin }]}
       >
         <LinearGradient
           // Background Linear Gradient
@@ -132,11 +165,44 @@ export default function QuestDetails() {
             )}
           />
         </View>
-        <TextInput
-          style={styles.input}
-          placeholder="Write a comment or Ask a question!"
-          placeholderTextColor="#475C46"
-        />
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: "#84aa82ff",
+            borderBottomLeftRadius: 15,
+            borderBottomRightRadius: 15,
+            marginBottom: 0,
+            height: 40,
+            width: "100%",
+          }}
+        >
+          <TextInput
+            style={[
+              styles.input,
+              {
+                flex: 1,
+                marginBottom: 0,
+                borderBottomLeftRadius: 15,
+                borderBottomRightRadius: 0,
+              },
+            ]}
+            placeholder="Write a comment or Ask a question!"
+            placeholderTextColor="#475C46"
+          />
+          <Pressable
+            onPress={() => {
+              /* handle comment submit here */
+            }}
+          >
+            <FontAwesome
+              name="arrow-right"
+              size={20}
+              color="white"
+              style={{ marginRight: 15 }}
+            />
+          </Pressable>
+        </View>
 
         <View style={styles.bottomBar}>
           <Pressable style={styles.backButton} onPress={() => router.back()}>
@@ -146,20 +212,13 @@ export default function QuestDetails() {
             <Text style={{ color: "white" }}>Accept Quest!</Text>
           </Pressable>
         </View>
-      </KeyboardAvoidingView>
+      </Animated.View>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  // invisibleContainer: {
-  //   flex: 1,
-  //   backgroundColor: "transparent",
-  // },
   container: {
     height: "63%",
-    //flex: 1,
-    //position: "absolute",
-    //bottom: 0,
     left: 0,
     right: 0,
     borderTopLeftRadius: 20,
@@ -171,7 +230,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     padding: 20,
     paddingTop: 25,
-    //paddingBottom: 30,
   },
   gradient: {
     position: "absolute",
@@ -183,7 +241,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   bottomBar: {
-    //position: "absolute",
     bottom: 10,
     left: 0,
     right: 0,
@@ -192,7 +249,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 40,
     marginTop: 15,
-    //marginBottom: 15,
   },
   backButton: {
     backgroundColor: "white",
@@ -210,10 +266,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 15,
     marginTop: 20,
-    // shadowColor: "black",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.3,
-    // shadowRadius: 5,
   },
   image: {
     width: 50,
@@ -230,7 +282,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginTop: 10,
-    //height: 140,
     flex: 1, // <-- allow FlatList to expand and scroll
     paddingBottom: 0,
   },

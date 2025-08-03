@@ -1,3 +1,4 @@
+import { FontAwesome } from "@expo/vector-icons";
 import { useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -57,19 +58,15 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
         latitudeDelta: 0.015,
         longitudeDelta: 0.015,
       }}
-      // region={{
-      //   latitude,
-      //   longitude,
-      //   latitudeDelta: 0.015,
-      //   longitudeDelta: 0.015,
-      // }}
       ref={mapRef}
       onPress={onMapPress}
+      showsUserLocation
+      showsMyLocationButton
     >
-      <Marker
+      {/* <Marker
         coordinate={{ latitude, longitude }}
         description="You are here!"
-      />
+      /> */}
 
       {data.map((quest) => (
         <Marker
@@ -83,7 +80,9 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
           }}
           onPress={() => onMarkerPress(quest)}
           description={quest.title}
-        />
+        >
+          <FontAwesome name={quest.iconName} size={32} color="#E84476" />
+        </Marker>
       ))}
     </MapView>
   );
