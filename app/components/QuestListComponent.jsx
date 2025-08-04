@@ -141,7 +141,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
             style={styles.postButton}
             onPress={() => {
               router.navigate({
-                pathname: "/createQuest",
+                pathname: "/modals/createQuest",
               });
             }}
           >
@@ -155,9 +155,9 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
             }
             onPress={() => {
               router.navigate({
-                pathname: "/quest/[id]",
+                pathname: "/modals/questDetails",
                 params: {
-                  id: selectedQuest.id,
+                  //id: selectedQuest.id,
                   data: JSON.stringify(
                     data.find((q) => q.id === selectedQuest.id)
                   ),

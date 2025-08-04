@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 export default function QuestDetails() {
-  const { id, data } = useLocalSearchParams();
+  const { data } = useLocalSearchParams();
   const quest = data ? JSON.parse(data) : null;
   const router = useRouter();
 
