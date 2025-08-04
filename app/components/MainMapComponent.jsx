@@ -81,7 +81,24 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
           onPress={() => onMarkerPress(quest)}
           description={quest.title}
         >
-          <FontAwesome name={quest.iconName} size={32} color="#E84476" />
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              width: 35,
+              height: 35,
+              borderRadius: 20,
+              backgroundColor: "white",
+              borderColor: quest.iconColor,
+              borderWidth: 5,
+            }}
+          >
+            <FontAwesome
+              name={quest.iconName}
+              size={25}
+              color={quest.iconColor}
+            />
+          </View>
         </Marker>
       ))}
     </MapView>

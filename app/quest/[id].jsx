@@ -2,7 +2,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   Animated,
   FlatList,
@@ -20,7 +20,7 @@ export default function QuestDetails() {
   const quest = data ? JSON.parse(data) : null;
   const router = useRouter();
 
-  const [keyboardOpen, setKeyboardOpen] = useState(false);
+  //const [keyboardOpen, setKeyboardOpen] = useState(false);
   const animatedMargin = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -54,9 +54,9 @@ export default function QuestDetails() {
           left: 0,
           width: "100%",
           height: "50%",
-          backgroundColor: "#506150ff",
+          backgroundColor: "#50615067",
         }}
-      ></View>
+      />
       <Animated.View
         style={[styles.container, { marginBottom: animatedMargin }]}
       >
@@ -218,7 +218,8 @@ export default function QuestDetails() {
 }
 const styles = StyleSheet.create({
   container: {
-    height: "63%",
+    minHeight: "63%",
+    //flexShrink: 1,
     left: 0,
     right: 0,
     borderTopLeftRadius: 20,

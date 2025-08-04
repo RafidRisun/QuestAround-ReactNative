@@ -89,38 +89,62 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               }
               onPress={() => onQuestPress(item)}
             >
-              <FontAwesome
-                name={item.iconName}
-                color={item.id === selectedQuest?.id ? "#506150ff" : "white"}
-                size={14}
-              />
-              <View>
-                <Text
-                  style={
-                    item.id === selectedQuest?.id
-                      ? { color: "#506150ff", fontWeight: "bold" }
-                      : { color: "white", fontWeight: "bold" }
-                  }
-                >
-                  {item.title}
-                </Text>
-                <Text
-                  style={
-                    item.id === selectedQuest?.id
-                      ? { color: "#506150ff", fontSize: 10 }
-                      : { color: "white", fontSize: 10 }
-                  }
-                >
-                  Reward: {item.reward}
-                </Text>
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+              >
+                <FontAwesome
+                  name={item.iconName}
+                  color={item.id === selectedQuest?.id ? "#506150ff" : "white"}
+                  size={14}
+                />
+                <View>
+                  <Text
+                    style={
+                      item.id === selectedQuest?.id
+                        ? { color: "#506150ff", fontWeight: "bold" }
+                        : { color: "white", fontWeight: "bold" }
+                    }
+                  >
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={
+                      item.id === selectedQuest?.id
+                        ? { color: "#506150ff", fontSize: 10 }
+                        : { color: "white", fontSize: 10 }
+                    }
+                  >
+                    Reward: {item.reward}
+                  </Text>
+                </View>
               </View>
+              {item.type === "event" && (
+                <Text
+                  style={{
+                    color: "#506150ff",
+                    fontSize: 8,
+                    backgroundColor: "white",
+                    padding: 3,
+                    borderRadius: 10,
+                  }}
+                >
+                  Event
+                </Text>
+              )}
             </Pressable>
           )}
         />
         <View
           style={selectedQuest ? styles.bottomBarSelected : styles.bottomBar}
         >
-          <Pressable style={styles.postButton}>
+          <Pressable
+            style={styles.postButton}
+            onPress={() => {
+              router.navigate({
+                pathname: "/createQuest",
+              });
+            }}
+          >
             <Text style={{ color: "white" }}>Post a Quest!</Text>
           </Pressable>
           <Pressable
@@ -197,6 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    justifyContent: "space-between",
   },
   listSelected: {
     padding: 10,
@@ -207,6 +232,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    justifyContent: "space-between",
   },
   bottomBar: {
     position: "absolute",

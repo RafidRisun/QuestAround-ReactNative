@@ -8,6 +8,10 @@ export default function RootLayout() {
         name="quest/[id]"
         options={{ presentation: "transparentModal" }}
       />
+      <Stack.Screen
+        name="createQuest"
+        options={{ presentation: "transparentModal" }}
+      />
     </Stack>
   );
 }
