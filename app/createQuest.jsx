@@ -13,6 +13,8 @@ import {
   View,
 } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import SelectDropdown from "react-native-select-dropdown";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function CreateQuest() {
   const router = useRouter();
@@ -25,7 +27,7 @@ export default function CreateQuest() {
 
   useEffect(() => {
     const showSub = Keyboard.addListener("keyboardDidShow", (e) => {
-      const kbHeight = (e.endCoordinates?.height || 330) - 200;
+      const kbHeight = (e.endCoordinates?.height || 330) - 250;
       Animated.timing(animatedMargin, {
         toValue: kbHeight,
         duration: 200,
@@ -44,6 +46,16 @@ export default function CreateQuest() {
       hideSub.remove();
     };
   }, []);
+
+  const questIconData = Object.keys(questIcon).map((key) => ({
+    title: key,
+    icon: questIcon[key],
+  }));
+
+  const questIconColorData = Object.keys(questIconColor).map((key) => ({
+    title: key,
+    color: questIconColor[key],
+  }));
 
   return (
     <View style={{ flex: 1, justifyContent: "flex-end" }}>
@@ -66,9 +78,16 @@ export default function CreateQuest() {
         />
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={{ flex: 1, paddingVertical: 10, gap: 10 }}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
-              Create a new quest
-            </Text>
+            <View>
+              <Text
+                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
+              >
+                Create a new quest
+              </Text>
+              <Text style={{ color: "white", fontSize: 12 }}>
+                (Quest location will be set to your current location)
+              </Text>
+            </View>
             <TextInput
               style={styles.input}
               placeholder="Enter quest title"
@@ -185,6 +204,98 @@ export default function CreateQuest() {
                 </Text>
               </View>
             </View>
+            <SelectDropdown
+              data={questIconData}
+              onSelect={(selectedItem, index) => {
+                console.log(selectedItem, index);
+              }}
+              renderButton={(selectedItem, isOpened) => {
+                return (
+                  <View style={styles.dropdownButtonStyle}>
+                    {selectedItem && (
+                      <Icon
+                        name={selectedItem.icon}
+                        style={styles.dropdownButtonIconStyle}
+                      />
+                    )}
+                    <Text style={styles.dropdownButtonTxtStyle}>
+                      {(selectedItem && selectedItem.title) ||
+                        "Select quest icon"}
+                    </Text>
+                    <Icon
+                      name={isOpened ? "chevron-up" : "chevron-down"}
+                      style={styles.dropdownButtonArrowStyle}
+                    />
+                  </View>
+                );
+              }}
+              renderItem={(item, index, isSelected) => {
+                return (
+                  <View
+                    style={{
+                      ...styles.dropdownItemStyle,
+                      ...(isSelected && { backgroundColor: "#D2D9DF" }),
+                    }}
+                  >
+                    <Icon
+                      name={item.icon}
+                      style={styles.dropdownItemIconStyle}
+                    />
+                    <Text style={styles.dropdownItemTxtStyle}>
+                      {item.title}
+                    </Text>
+                  </View>
+                );
+              }}
+              showsVerticalScrollIndicator={false}
+              dropdownStyle={styles.dropdownMenuStyle}
+            />
+            <SelectDropdown
+              data={questIconColorData}
+              onSelect={(selectedItem, index) => {
+                console.log(selectedItem, index);
+              }}
+              renderButton={(selectedItem, isOpened) => {
+                return (
+                  <View style={styles.dropdownButtonStyle}>
+                    <Text
+                      style={[
+                        styles.dropdownButtonTxtStyle,
+                        { color: selectedItem ? selectedItem.color : "white" },
+                      ]}
+                    >
+                      {(selectedItem && selectedItem.title) ||
+                        "Select quest color"}
+                    </Text>
+                    <Icon
+                      name={isOpened ? "chevron-up" : "chevron-down"}
+                      style={styles.dropdownButtonArrowStyle}
+                    />
+                  </View>
+                );
+              }}
+              renderItem={(item, index, isSelected) => {
+                return (
+                  <View
+                    style={{
+                      ...styles.dropdownItemStyle,
+                      ...(isSelected && { backgroundColor: "#D2D9DF" }),
+                    }}
+                  >
+                    <Text
+                      style={[
+                        styles.dropdownItemTxtStyle,
+                        { color: item.color },
+                      ]}
+                    >
+                      {item.title}
+                    </Text>
+                  </View>
+                );
+              }}
+              showsVerticalScrollIndicator={false}
+              dropdownStyle={styles.dropdownMenuStyle}
+            />
           </View>
         </TouchableWithoutFeedback>
         <View style={styles.bottomBar}>
@@ -202,8 +313,7 @@ export default function CreateQuest() {
 
 const styles = StyleSheet.create({
   container: {
-    height: "80%",
-    //flexShrink: 1,
+    height: "85%",
     left: 0,
     right: 0,
     borderTopLeftRadius: 20,
@@ -256,6 +366,73 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     height: 40,
     width: "100%",
-    //marginVertical: 20,
+  },
+  dropdownButtonStyle: {
+    width: "100%",
+    height: 40,
+    backgroundColor: "#84aa82ff",
+    borderRadius: 12,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 12,
+    marginTop: 10,
+  },
+  dropdownButtonTxtStyle: {
+    flex: 1,
+    fontSize: 14,
+    color: "white",
+  },
+  dropdownButtonArrowStyle: {
+    fontSize: 22,
+    color: "white",
+  },
+  dropdownButtonIconStyle: {
+    fontSize: 28,
+    marginRight: 8,
+    color: "white",
+  },
+  dropdownMenuStyle: {
+    backgroundColor: "#84aa82ff",
+    borderRadius: 8,
+  },
+  dropdownItemStyle: {
+    width: "100%",
+    flexDirection: "row",
+    paddingHorizontal: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 8,
+  },
+  dropdownItemTxtStyle: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: "500",
+    color: "white",
+  },
+  dropdownItemIconStyle: {
+    fontSize: 28,
+    marginRight: 8,
+    color: "white",
   },
 });
+
+const questIcon = {
+  Nature: "leaf",
+  Study: "book",
+  "Animals and Pets": "paw",
+  Shopping: "shopping-cart",
+  Farming: "seedling",
+  Cooking: "kitchen-set",
+  Star: "star",
+  Paint: "paint-brush",
+  Hammer: "hammer",
+};
+
+const questIconColor = {
+  blue: "#3D74B6",
+  yellow: "#FFCB61",
+  orange: "#FF894F",
+  red: "#EA5B6F",
+  green: "#4A9782",
+};
