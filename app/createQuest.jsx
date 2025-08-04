@@ -90,30 +90,43 @@ export default function CreateQuest() {
             </View>
             <TextInput
               style={styles.input}
-              placeholder="Enter quest title"
+              placeholder="Give your Quest a Title!"
               placeholderTextColor="#ccc"
             />
             <TextInput
               style={[styles.input, { height: 80 }]}
-              placeholder="Enter quest description"
+              placeholder="Describe your Quest a bit:)"
               placeholderTextColor="#ccc"
               multiline={true}
               numberOfLines={4}
               textAlignVertical="top"
             />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TextInput
+                style={[styles.input, { flex: 1 }]} // Make the TextInput take up available space
+                keyboardType="numeric"
+                placeholder="What would the Reward be?? (Enter amount)"
+                placeholderTextColor="#ccc"
+              />
+              <Text
+                style={{
+                  marginLeft: 8,
+                  marginRight: 8,
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+              >
+                Taka
+              </Text>
+            </View>
             <TextInput
               style={styles.input}
-              placeholder="Enter quest reward"
+              placeholder="Let them know your Address"
               placeholderTextColor="#ccc"
             />
             <TextInput
               style={styles.input}
-              placeholder="Enter quest address"
-              placeholderTextColor="#ccc"
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Enter phone number"
+              placeholder="Can we get your Phone Number?:)"
               placeholderTextColor="#ccc"
             />
             <View
@@ -188,6 +201,7 @@ export default function CreateQuest() {
               <View
                 style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
               >
+                {/* Only for female users */}
                 <BouncyCheckbox
                   size={20}
                   disableText
@@ -313,7 +327,7 @@ export default function CreateQuest() {
 
 const styles = StyleSheet.create({
   container: {
-    height: "85%",
+    height: "82%",
     left: 0,
     right: 0,
     borderTopLeftRadius: 20,
