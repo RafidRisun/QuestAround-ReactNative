@@ -46,174 +46,185 @@ export default function QuestDetails() {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: "flex-end" }}>
-      <View
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          height: "50%",
-          backgroundColor: "#50615067",
-        }}
-      />
-      <Animated.View
-        style={[styles.container, { marginBottom: animatedMargin }]}
-      >
-        <LinearGradient
-          // Background Linear Gradient
-          colors={["#96c294", "#506150ff"]}
-          style={styles.gradient}
-        />
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text
-                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-              >
-                {quest.title}
-              </Text>
-              <FontAwesome name={quest.iconName} color="white" size={20} />
-            </View>
-            <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
-              Reward: {quest.reward}
-            </Text>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 14,
-                marginTop: 10,
-                textAlign: "justify",
-              }}
-            >
-              {quest.description}
-            </Text>
-            <View
-              style={{
-                marginTop: 20,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <View style={{ flexDirection: "row", gap: 5 }}>
-                <Text style={{ color: "white", fontWeight: "bold" }}>
-                  Posted On:{" "}
-                </Text>
-                <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
-              </View>
-              <View style={{ flexDirection: "row", gap: 5 }}>
-                <Text style={{ color: "white", fontWeight: "bold" }}>
-                  Ends On:{" "}
-                </Text>
-                <Text style={{ color: "white" }}>{quest.endDate}</Text>
-              </View>
-            </View>
-            <View style={styles.userCard}>
-              <Image
-                style={styles.image}
-                source={require("../../assets/images/image.png")}
-                //placeholder={}
-                contentFit="cover"
-                transition={1000}
-              />
-              <View>
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    color: "#506150ff",
-                    fontSize: 12,
-                  }}
-                >
-                  Quest Posted by:
-                </Text>
-                <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
-                  {quest.username}
-                </Text>
-                <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-
-        <View style={styles.commentCard}>
-          <Text
-            style={{
-              color: "#506150ff",
-              fontWeight: "bold",
-            }}
-          >
-            Comments
-          </Text>
-          <View
-            style={{
-              borderBottomColor: "#506150ff",
-              borderBottomWidth: StyleSheet.hairlineWidth,
-            }}
-          />
-          <FlatList
-            data={quest.comments}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View style={{ marginVertical: 5 }}>
-                <Text style={{ color: "#506150ff" }}>{item.text}</Text>
-                <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
-                  -{item.username}
-                </Text>
-              </View>
-            )}
-          />
-        </View>
+    <>
+      <Pressable style={{ flex: 1 }} onPress={() => router.back()}></Pressable>
+      <View style={{ flex: 1, justifyContent: "flex-end" }}>
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "#84aa82ff",
-            borderBottomLeftRadius: 15,
-            borderBottomRightRadius: 15,
-            marginBottom: 0,
-            height: 40,
+            position: "absolute",
+            bottom: 0,
+            left: 0,
             width: "100%",
+            height: "50%",
+            backgroundColor: "#50615067",
           }}
+        />
+        <Animated.View
+          style={[styles.container, { marginBottom: animatedMargin }]}
         >
-          <TextInput
-            style={[
-              styles.input,
-              {
-                flex: 1,
-                marginBottom: 0,
-                borderBottomLeftRadius: 15,
-                borderBottomRightRadius: 0,
-              },
-            ]}
-            placeholder="Write a comment or Ask a question!"
-            placeholderTextColor="#475C46"
+          <LinearGradient
+            // Background Linear Gradient
+            colors={["#96c294", "#506150ff"]}
+            style={styles.gradient}
           />
-          <Pressable
-            onPress={() => {
-              /* handle comment submit here */
+          <TouchableWithoutFeedback
+            onPress={Keyboard.dismiss}
+            accessible={false}
+          >
+            <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text
+                  style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
+                >
+                  {quest.title}
+                </Text>
+                <FontAwesome name={quest.iconName} color="white" size={20} />
+              </View>
+              <Text
+                style={{ color: "white", fontSize: 12, fontWeight: "bold" }}
+              >
+                Reward: {quest.reward}
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 14,
+                  marginTop: 10,
+                  textAlign: "justify",
+                }}
+              >
+                {quest.description}
+              </Text>
+              <View
+                style={{
+                  marginTop: 20,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View style={{ flexDirection: "row", gap: 5 }}>
+                  <Text style={{ color: "white", fontWeight: "bold" }}>
+                    Posted On:{" "}
+                  </Text>
+                  <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
+                </View>
+                <View style={{ flexDirection: "row", gap: 5 }}>
+                  <Text style={{ color: "white", fontWeight: "bold" }}>
+                    Ends On:{" "}
+                  </Text>
+                  <Text style={{ color: "white" }}>{quest.endDate}</Text>
+                </View>
+              </View>
+              <View style={styles.userCard}>
+                <Image
+                  style={styles.image}
+                  source={require("../../assets/images/image.png")}
+                  //placeholder={}
+                  contentFit="cover"
+                  transition={1000}
+                />
+                <View>
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      color: "#506150ff",
+                      fontSize: 12,
+                    }}
+                  >
+                    Quest Posted by:
+                  </Text>
+                  <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+                    {quest.username}
+                  </Text>
+                  <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+
+          <View style={styles.commentCard}>
+            <Text
+              style={{
+                color: "#506150ff",
+                fontWeight: "bold",
+              }}
+            >
+              Comments
+            </Text>
+            <View
+              style={{
+                borderBottomColor: "#506150ff",
+                borderBottomWidth: StyleSheet.hairlineWidth,
+              }}
+            />
+            <FlatList
+              data={quest.comments}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View style={{ marginVertical: 5 }}>
+                  <Text style={{ color: "#506150ff" }}>{item.text}</Text>
+                  <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+                    -{item.username}
+                  </Text>
+                </View>
+              )}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "#84aa82ff",
+              borderBottomLeftRadius: 15,
+              borderBottomRightRadius: 15,
+              marginBottom: 0,
+              height: 40,
+              width: "100%",
             }}
           >
-            <FontAwesome
-              name="arrow-right"
-              size={20}
-              color="white"
-              style={{ marginRight: 15 }}
+            <TextInput
+              style={[
+                styles.input,
+                {
+                  flex: 1,
+                  marginBottom: 0,
+                  borderBottomLeftRadius: 15,
+                  borderBottomRightRadius: 0,
+                },
+              ]}
+              placeholder="Write a comment or Ask a question!"
+              placeholderTextColor="#475C46"
             />
-          </Pressable>
-        </View>
+            <Pressable
+              onPress={() => {
+                /* handle comment submit here */
+              }}
+            >
+              <FontAwesome
+                name="arrow-right"
+                size={20}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          </View>
 
-        <View style={styles.bottomBar}>
-          <Pressable style={styles.backButton} onPress={() => router.back()}>
-            <Text style={{ color: "#506150ff" }}>Back to Quests</Text>
-          </Pressable>
-          <Pressable style={styles.acceptButton}>
-            <Text style={{ color: "white" }}>Accept Quest!</Text>
-          </Pressable>
-        </View>
-      </Animated.View>
-    </View>
+          <View style={styles.bottomBar}>
+            <Pressable style={styles.backButton} onPress={() => router.back()}>
+              <Text style={{ color: "#506150ff" }}>Back to Quests</Text>
+            </Pressable>
+            <Pressable style={styles.acceptButton}>
+              <Text style={{ color: "white" }}>Accept Quest!</Text>
+            </Pressable>
+          </View>
+        </Animated.View>
+      </View>
+    </>
   );
 }
 const styles = StyleSheet.create({

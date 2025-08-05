@@ -1,39 +1,36 @@
 import { useRouter } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 const Options = () => {
   const router = useRouter();
 
   return (
-    <Pressable
-      style={{ flex: 1, padding: 20, paddingTop: 50 }}
-      onPress={() => router.back()}
-    >
+    <>
+      <Pressable style={{ flex: 1 }} onPress={() => router.back()}></Pressable>
       <View style={styles.container}>
-        <Text style={styles.text}>Options</Text>
-        <Pressable
-          onPress={() => {
-            console.log("Pressed");
-          }}
-        >
-          <Text>Press Me</Text>
-        </Pressable>
+        <View style={styles.optionCard}></View>
       </View>
-    </Pressable>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: "30%",
+    height: "15%",
     width: "100%",
-    backgroundColor: "#84aa82ff",
-    justifyContent: "center",
-    alignItems: "center",
+    position: "absolute",
+    top: 20,
+    padding: 20,
   },
   text: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  optionCard: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#84aa82ff",
+    borderRadius: 20,
   },
 });
 

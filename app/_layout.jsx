@@ -15,7 +15,7 @@ export default function RootLayout() {
         }}
         style={{
           position: "absolute",
-          top: 40,
+          top: 50,
           left: 20,
           zIndex: 1, // Ensure it stays above other elements
         }}
