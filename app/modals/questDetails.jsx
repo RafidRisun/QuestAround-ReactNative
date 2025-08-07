@@ -64,7 +64,7 @@ export default function QuestDetails() {
         >
           <LinearGradient
             // Background Linear Gradient
-            colors={["#96c294", "#506150ff"]}
+            colors={["#83c193", "#4b6351"]}
             style={styles.gradient}
           />
           <TouchableWithoutFeedback
@@ -219,7 +219,9 @@ export default function QuestDetails() {
               <Text style={{ color: "#506150ff" }}>Back to Quests</Text>
             </Pressable>
             <Pressable style={styles.acceptButton}>
-              <Text style={{ color: "white" }}>Accept Quest!</Text>
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                Accept Quest!
+              </Text>
             </Pressable>
           </View>
         </Animated.View>
@@ -229,7 +231,7 @@ export default function QuestDetails() {
 }
 const styles = StyleSheet.create({
   container: {
-    minHeight: "63%",
+    minHeight: "65%",
     //flexShrink: 1,
     left: 0,
     right: 0,
@@ -260,17 +262,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 40,
-    marginTop: 15,
+    marginTop: 20,
   },
   backButton: {
     backgroundColor: "white",
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   acceptButton: {
     backgroundColor: "#E84476",
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   userCard: {
     flexDirection: "row",

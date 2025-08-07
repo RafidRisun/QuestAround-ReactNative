@@ -57,7 +57,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <LinearGradient
           // Background Linear Gradient
-          colors={["#96c294", "#506150ff"]}
+          colors={["#83c193", "#4b6351"]}
           style={styles.gradient}
         />
         <TextInput
@@ -125,7 +125,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
                     fontSize: 8,
                     backgroundColor: "white",
                     padding: 3,
-                    borderRadius: 10,
+                    borderRadius: 5,
                   }}
                 >
                   Event
@@ -138,14 +138,30 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
           style={selectedQuest ? styles.bottomBarSelected : styles.bottomBar}
         >
           <Pressable
-            style={styles.postButton}
+            style={
+              selectedQuest ? styles.postButtonSelected : styles.postButton
+            }
             onPress={() => {
               router.navigate({
                 pathname: "/modals/createQuest",
               });
             }}
           >
-            <Text style={{ color: "white" }}>Post a Quest!</Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              Post a Quest!
+            </Text>
+          </Pressable>
+          <Pressable
+            style={
+              selectedQuest
+                ? styles.unselectbuttonSelected
+                : styles.unselectbutton
+            }
+            onPress={() => {
+              setSelectedQuest(null);
+            }}
+          >
+            <Text style={{ color: "#475C46" }}>Unselect</Text>
           </Pressable>
           <Pressable
             style={
@@ -165,7 +181,9 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               });
             }}
           >
-            <Text style={{ color: "white" }}>Go to Quest!</Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              Go to Quest!
+            </Text>
           </Pressable>
         </View>
       </KeyboardAvoidingView>
@@ -188,7 +206,7 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.5,
-    shadowRadius: 10,
+    shadowRadius: 0,
     elevation: 5,
   },
   gradient: {
@@ -215,9 +233,9 @@ const styles = StyleSheet.create({
   list: {
     padding: 10,
     paddingLeft: 20,
-    borderRadius: 15,
+    borderRadius: 10,
     marginVertical: 4,
-    backgroundColor: "#84aa82ff",
+    backgroundColor: "#72aa82",
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
@@ -226,7 +244,7 @@ const styles = StyleSheet.create({
   listSelected: {
     padding: 10,
     paddingLeft: 20,
-    borderRadius: 15,
+    borderRadius: 10,
     marginVertical: 4,
     backgroundColor: "white",
     flexDirection: "row",
@@ -255,20 +273,37 @@ const styles = StyleSheet.create({
     paddingHorizontal: 70,
   },
   postButton: {
-    backgroundColor: "#5B765B",
+    backgroundColor: "#83c193",
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 10,
+  },
+  postButtonSelected: {
+    backgroundColor: "#83c193",
+    padding: 15,
+    borderRadius: 10,
+    display: "none",
   },
   goToQuestbutton: {
     backgroundColor: "#E84476",
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 10,
     display: "none",
   },
   goToQuestbuttonSelected: {
     backgroundColor: "#E84476",
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 10,
+  },
+  unselectbutton: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
+    display: "none",
+  },
+  unselectbuttonSelected: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
   },
 });
 

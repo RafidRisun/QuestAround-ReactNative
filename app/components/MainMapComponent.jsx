@@ -1,6 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import useLocation from "../hooks/useLocation";
 
@@ -9,6 +10,7 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   const mapRef = useRef(null);
   const markerRefs = useRef({});
   const markerPressedRef = useRef(false); // <-- add this
+  const router = useRouter();
 
   useEffect(() => {
     if (selectedQuest && mapRef.current) {
@@ -24,6 +26,12 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
     }
     if (selectedQuest && markerRefs.current[selectedQuest.id]) {
       markerRefs.current[selectedQuest.id].showCallout();
+    } else if (selectedQuest === null) {
+      Object.values(markerRefs.current).forEach((marker) => {
+        if (marker) {
+          marker.hideCallout();
+        }
+      });
     }
   }, [selectedQuest]);
 
@@ -49,59 +57,84 @@ const MainMapComponent = ({ selectedQuest, setSelectedQuest, data }) => {
     );
   }
   return (
-    <MapView
-      style={styles.map}
-      provider={PROVIDER_GOOGLE}
-      initialRegion={{
-        latitude,
-        longitude,
-        latitudeDelta: 0.015,
-        longitudeDelta: 0.015,
-      }}
-      ref={mapRef}
-      onPress={onMapPress}
-      showsUserLocation
-      showsMyLocationButton
-    >
-      {/* <Marker
+    <>
+      <MapView
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={{
+          latitude,
+          longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015,
+        }}
+        ref={mapRef}
+        onPress={onMapPress}
+        showsUserLocation
+        showsMyLocationButton
+      >
+        {/* <Marker
         coordinate={{ latitude, longitude }}
         description="You are here!"
       /> */}
 
-      {data.map((quest) => (
-        <Marker
-          ref={(ref) => {
-            markerRefs.current[quest.id] = ref;
-          }}
-          key={quest.id}
-          coordinate={{
-            latitude: quest.location[0],
-            longitude: quest.location[1],
-          }}
-          onPress={() => onMarkerPress(quest)}
-          description={quest.title}
-        >
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              width: 35,
-              height: 35,
-              borderRadius: 20,
-              backgroundColor: "white",
-              borderColor: quest.iconColor,
-              borderWidth: 5,
+        {data.map((quest) => (
+          <Marker
+            ref={(ref) => {
+              markerRefs.current[quest.id] = ref;
             }}
+            key={quest.id}
+            coordinate={{
+              latitude: quest.location[0],
+              longitude: quest.location[1],
+            }}
+            onPress={() => onMarkerPress(quest)}
+            description={quest.title}
           >
-            <FontAwesome
-              name={quest.iconName}
-              size={25}
-              color={quest.iconColor}
-            />
-          </View>
-        </Marker>
-      ))}
-    </MapView>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                width: 35,
+                height: 35,
+                borderRadius: 20,
+                backgroundColor: "white",
+                borderColor: quest.iconColor,
+                borderWidth: 5,
+              }}
+            >
+              <FontAwesome
+                name={quest.iconName}
+                size={25}
+                color={quest.iconColor}
+              />
+            </View>
+          </Marker>
+        ))}
+      </MapView>
+      <Pressable
+        onPress={() => {
+          console.log("Special Events Pressed");
+        }}
+      >
+        <View
+          style={{
+            position: "absolute",
+            bottom: 15,
+            left: 15,
+            backgroundColor: "#E84476",
+            borderRadius: 10,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            padding: 10,
+            gap: 10,
+          }}
+        >
+          <FontAwesome name="star" size={14} color="white" />
+          <Text style={{ color: "white", fontSize: 12 }}>Special Events!</Text>
+        </View>
+      </Pressable>
+    </>
   );
 };
 

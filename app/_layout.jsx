@@ -18,21 +18,38 @@ export default function RootLayout() {
           top: 50,
           left: 20,
           zIndex: 1, // Ensure it stays above other elements
+          padding: 10,
+          backgroundColor: "#83c193",
+          borderRadius: 10,
+          alignItems: "center",
+          justifyContent: "center",
+          height: 45,
+          width: 45,
         }}
       >
-        <View
-          style={{
-            padding: 10,
-            backgroundColor: "#96c294",
-            borderRadius: 50,
-            alignItems: "center",
-            justifyContent: "center",
-            height: 45,
-            width: 45,
-          }}
-        >
-          <FontAwesome name="bars" size={20} color="white" />
-        </View>
+        <FontAwesome name="bars" size={20} color="white" />
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          router.navigate({
+            pathname: "/modals/notifications",
+          });
+        }}
+        style={{
+          position: "absolute",
+          top: 50,
+          right: 20,
+          zIndex: 1, // Ensure it stays above other elements
+          padding: 10,
+          backgroundColor: "#83c193",
+          borderRadius: 10,
+          alignItems: "center",
+          justifyContent: "center",
+          height: 45,
+          width: 45,
+        }}
+      >
+        <FontAwesome name="bell" size={20} color="white" />
       </Pressable>
 
       {/* Stack Navigator */}
@@ -51,6 +68,12 @@ export default function RootLayout() {
           options={{
             presentation: "transparentModal",
             animation: "fade",
+          }}
+        />
+        <Stack.Screen
+          name="profile"
+          options={{
+            presentation: "modal",
           }}
         />
       </Stack>

@@ -75,7 +75,7 @@ export default function CreateQuest() {
           style={[styles.container, { marginBottom: animatedMargin }]}
         >
           <LinearGradient
-            colors={["#96c294", "#506150ff"]}
+            colors={["#83c193", "#4b6351"]}
             style={styles.gradient}
           />
           <TouchableWithoutFeedback
@@ -332,7 +332,9 @@ export default function CreateQuest() {
               <Text style={{ color: "#506150ff" }}>Back to Quests</Text>
             </Pressable>
             <Pressable style={styles.PostButton}>
-              <Text style={{ color: "white" }}>Post Quest!</Text>
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                Post Quest!
+              </Text>
             </Pressable>
           </View>
         </Animated.View>
@@ -378,12 +380,12 @@ const styles = StyleSheet.create({
   backButton: {
     backgroundColor: "white",
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   PostButton: {
     backgroundColor: "#E84476",
     padding: 15,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   input: {
     backgroundColor: "white",
