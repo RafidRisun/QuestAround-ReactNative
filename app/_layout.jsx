@@ -19,15 +19,16 @@ export default function RootLayout() {
           left: 20,
           zIndex: 1, // Ensure it stays above other elements
           padding: 10,
-          backgroundColor: "#83c193",
-          borderRadius: 10,
+          backgroundColor: "#439e74",
           alignItems: "center",
           justifyContent: "center",
           height: 45,
           width: 45,
+          borderWidth: 3,
+          borderColor: "#f2e8b7",
         }}
       >
-        <FontAwesome name="bars" size={20} color="white" />
+        <FontAwesome name="bars" size={20} color="#f2e8b7" />
       </Pressable>
       <Pressable
         onPress={() => {
@@ -41,15 +42,16 @@ export default function RootLayout() {
           right: 20,
           zIndex: 1, // Ensure it stays above other elements
           padding: 10,
-          backgroundColor: "#83c193",
-          borderRadius: 10,
+          backgroundColor: "#439e74",
           alignItems: "center",
           justifyContent: "center",
           height: 45,
           width: 45,
+          borderWidth: 3,
+          borderColor: "#f2e8b7",
         }}
       >
-        <FontAwesome name="bell" size={20} color="white" />
+        <FontAwesome name="bell" size={20} color="#f2e8b7" />
       </Pressable>
 
       {/* Stack Navigator */}

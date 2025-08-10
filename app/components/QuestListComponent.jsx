@@ -1,5 +1,4 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import {
@@ -13,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import BackgroundSVG from "../../assets/svg/backgroundLudo.svg";
 
 const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   const questListRef = useRef(null);
@@ -40,11 +40,14 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   if (!data || data.length === 0) {
     return (
       <View style={styles.container}>
-        <LinearGradient
-          // Background Linear Gradient
-          colors={["#96c294", "#506150ff"]}
-          style={styles.gradient}
-        />
+        <View style={styles.svgBackground}>
+          <BackgroundSVG
+            width="100%"
+            height="100%"
+            preserveAspectRatio="xMidYMid slice" // maintain aspect ratio, cover parent
+            style={{ opacity: 0.92 }}
+          />
+        </View>
         <Text style={{ color: "white", fontSize: "16", fontWeight: "bold" }}>
           No quests available
         </Text>
@@ -55,19 +58,32 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <LinearGradient
-          // Background Linear Gradient
-          colors={["#83c193", "#4b6351"]}
-          style={styles.gradient}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Search for Quests..."
-          placeholderTextColor="#475C46"
-        />
+        <View style={styles.svgBackground}>
+          <BackgroundSVG
+            width="100%"
+            height="100%"
+            preserveAspectRatio="xMidYMid slice" // maintain aspect ratio, cover parent
+            style={{ opacity: 0.92 }}
+          />
+        </View>
+        <View
+          style={{
+            height: 50,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <TextInput
+            style={styles.input}
+            placeholder="Search for Quests..."
+            placeholderTextColor="#395444"
+          />
+        </View>
+
         <Text
           style={{
-            color: "white",
+            color: "#f2e8b7",
             paddingLeft: 10,
             margin: 6,
             fontWeight: "bold",
@@ -75,65 +91,69 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
         >
           Quests Nearby!
         </Text>
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={{ paddingBottom: 80 }}
-          ref={questListRef}
-          renderItem={({ item }) => (
-            <Pressable
-              style={
-                item.id === selectedQuest?.id
-                  ? styles.listSelected
-                  : styles.list
-              }
-              onPress={() => onQuestPress(item)}
-            >
-              <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-              >
-                <FontAwesome
-                  name={item.iconName}
-                  color={item.id === selectedQuest?.id ? "#506150ff" : "white"}
-                  size={14}
-                />
-                <View>
-                  <Text
-                    style={
-                      item.id === selectedQuest?.id
-                        ? { color: "#506150ff", fontWeight: "bold" }
-                        : { color: "white", fontWeight: "bold" }
-                    }
+        <View style={{ height: 230, overflow: "hidden" }}>
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={{ paddingBottom: 80 }}
+            ref={questListRef}
+            renderItem={({ item }) => (
+              <Pressable onPress={() => onQuestPress(item)}>
+                <View style={styles.list}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
                   >
-                    {item.title}
-                  </Text>
-                  <Text
-                    style={
-                      item.id === selectedQuest?.id
-                        ? { color: "#506150ff", fontSize: 10 }
-                        : { color: "white", fontSize: 10 }
-                    }
-                  >
-                    Reward: {item.reward}
-                  </Text>
+                    <FontAwesome
+                      name={item.iconName}
+                      color={
+                        item.id === selectedQuest?.id ? "#eb6650" : "white"
+                      }
+                      size={14}
+                    />
+                    <View>
+                      <Text
+                        style={
+                          item.id === selectedQuest?.id
+                            ? { color: "#eb6650", fontWeight: "bold" }
+                            : { color: "white", fontWeight: "bold" }
+                        }
+                      >
+                        {item.title}
+                      </Text>
+                      <Text
+                        style={
+                          item.id === selectedQuest?.id
+                            ? { color: "#eb6650", fontSize: 10 }
+                            : { color: "white", fontSize: 10 }
+                        }
+                      >
+                        Reward: {item.reward}
+                      </Text>
+                    </View>
+                  </View>
+                  {item.type === "event" && (
+                    <Text
+                      style={{
+                        color: "#506150ff",
+                        fontSize: 8,
+                        backgroundColor: "white",
+                        padding: 3,
+                        borderRadius: 5,
+                      }}
+                    >
+                      Event
+                    </Text>
+                  )}
                 </View>
-              </View>
-              {item.type === "event" && (
-                <Text
-                  style={{
-                    color: "#506150ff",
-                    fontSize: 8,
-                    backgroundColor: "white",
-                    padding: 3,
-                    borderRadius: 5,
-                  }}
-                >
-                  Event
-                </Text>
-              )}
-            </Pressable>
-          )}
-        />
+              </Pressable>
+            )}
+          />
+        </View>
+
         <View
           style={selectedQuest ? styles.bottomBarSelected : styles.bottomBar}
         >
@@ -151,6 +171,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               Post a Quest!
             </Text>
           </Pressable>
+
           <Pressable
             style={
               selectedQuest
@@ -161,7 +182,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               setSelectedQuest(null);
             }}
           >
-            <Text style={{ color: "#475C46" }}>Unselect</Text>
+            <Text style={{ color: "#439e74" }}>Unselect</Text>
           </Pressable>
           <Pressable
             style={
@@ -181,7 +202,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               });
             }}
           >
-            <Text style={{ color: "white", fontWeight: "bold" }}>
+            <Text style={{ color: "#f2e8b7", fontWeight: "bold" }}>
               Go to Quest!
             </Text>
           </Pressable>
@@ -193,64 +214,45 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
 
 const styles = StyleSheet.create({
   container: {
-    //position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "transparent",
-    padding: 20,
-    paddingTop: 35,
-    //height: "45%",
+    backgroundColor: "#439e74",
+    paddingHorizontal: 60,
+    paddingVertical: 55,
     flex: 1,
     boxSizing: "border-box",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.5,
-    shadowRadius: 0,
-    elevation: 5,
   },
-  gradient: {
+  svgBackground: {
     position: "absolute",
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    padding: 0,
+    margin: 0,
   },
   input: {
-    backgroundColor: "white",
-    color: "black",
     padding: 8,
-    paddingLeft: 20,
-    borderWidth: 0.5,
-    borderColor: "#475C46",
-    borderRadius: 15,
-    marginBottom: 0,
+    paddingLeft: 30,
     height: 40,
     width: "100%",
+    backgroundColor: "#f7ce56",
+    borderWidth: 2,
+    borderColor: "#f2e8b7",
   },
   list: {
+    width: "100%",
     padding: 10,
-    paddingLeft: 20,
-    borderRadius: 10,
+    paddingHorizontal: 20,
     marginVertical: 4,
-    backgroundColor: "#72aa82",
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
     justifyContent: "space-between",
-  },
-  listSelected: {
-    padding: 10,
-    paddingLeft: 20,
-    borderRadius: 10,
-    marginVertical: 4,
-    backgroundColor: "white",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    justifyContent: "space-between",
+    backgroundColor: "#1e5382",
+    borderWidth: 2,
+    borderColor: "#f2e8b7",
   },
   bottomBar: {
     position: "absolute",
@@ -268,42 +270,39 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 70,
+    gap: 50,
   },
   postButton: {
-    backgroundColor: "#83c193",
-    padding: 15,
-    borderRadius: 10,
+    flexShrink: 1,
+    padding: 10,
+    backgroundColor: "#439e74",
+    borderWidth: 4,
+    borderColor: "#f2e8b7",
   },
   postButtonSelected: {
-    backgroundColor: "#83c193",
-    padding: 15,
-    borderRadius: 10,
     display: "none",
   },
   goToQuestbutton: {
-    backgroundColor: "#E84476",
-    padding: 15,
-    borderRadius: 10,
     display: "none",
   },
   goToQuestbuttonSelected: {
-    backgroundColor: "#E84476",
-    padding: 15,
-    borderRadius: 10,
+    flexShrink: 1,
+    padding: 10,
+    backgroundColor: "#439e74",
+    borderWidth: 4,
+    borderColor: "#f2e8b7",
   },
   unselectbutton: {
-    backgroundColor: "white",
-    padding: 15,
-    borderRadius: 10,
     display: "none",
   },
   unselectbuttonSelected: {
-    backgroundColor: "white",
-    padding: 15,
-    borderRadius: 10,
+    flexShrink: 1,
+    padding: 10,
+    backgroundColor: "#f2e8b7",
+    borderWidth: 4,
+    borderColor: "#439e74",
   },
 });
 
