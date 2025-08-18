@@ -1,19 +1,16 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import {
   Animated,
-  FlatList,
   Keyboard,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
+import TallBackSVG from "../../assets/svg/whiteFrame.svg";
 
 export default function QuestDetails() {
   const { data } = useLocalSearchParams();
@@ -46,205 +43,140 @@ export default function QuestDetails() {
   }, []);
 
   return (
-    <>
-      <Pressable style={{ flex: 1 }} onPress={() => router.back()}></Pressable>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
+    <View style={{ flex: 1 }}>
+      <Pressable style={{ flex: 1 }} onPress={() => router.back()} />
+      <View
+        style={{
+          width: "100%",
+          minHeight: "20%",
+          backgroundColor: "#ee906f",
+          borderRadius: 10,
+        }}
+      >
         <View
           style={{
             position: "absolute",
-            bottom: 0,
+            top: 0,
             left: 0,
+            right: 0,
             width: "100%",
-            height: "50%",
-            backgroundColor: "#50615067",
+            height: "100%",
+            padding: 2,
           }}
-        />
-        <Animated.View
-          style={[styles.container, { marginBottom: animatedMargin }]}
         >
-          <LinearGradient
-            // Background Linear Gradient
-            colors={["#83c193", "#4b6351"]}
-            style={styles.gradient}
+          <TallBackSVG
+            width="100%"
+            height="100%"
+            preserveAspectRatio="xMidYMin meet"
+            style={{}}
           />
-          <TouchableWithoutFeedback
-            onPress={Keyboard.dismiss}
-            accessible={false}
-          >
-            <View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text
-                  style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-                >
-                  {quest.title}
-                </Text>
-                <FontAwesome name={quest.iconName} color="white" size={20} />
-              </View>
-              <Text
-                style={{ color: "white", fontSize: 12, fontWeight: "bold" }}
-              >
-                Reward: {quest.reward}
-              </Text>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 14,
-                  marginTop: 10,
-                  textAlign: "justify",
-                }}
-              >
-                {quest.description}
-              </Text>
-              <View
-                style={{
-                  marginTop: 20,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <View style={{ flexDirection: "row", gap: 5 }}>
-                  <Text style={{ color: "white", fontWeight: "bold" }}>
-                    Posted On:{" "}
-                  </Text>
-                  <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
-                </View>
-                <View style={{ flexDirection: "row", gap: 5 }}>
-                  <Text style={{ color: "white", fontWeight: "bold" }}>
-                    Ends On:{" "}
-                  </Text>
-                  <Text style={{ color: "white" }}>{quest.endDate}</Text>
-                </View>
-              </View>
-              <View style={styles.userCard}>
-                <Image
-                  style={styles.image}
-                  source={require("../../assets/images/image.png")}
-                  //placeholder={}
-                  contentFit="cover"
-                  transition={1000}
-                />
-                <View>
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      color: "#506150ff",
-                      fontSize: 12,
-                    }}
-                  >
-                    Quest Posted by:
-                  </Text>
-                  <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
-                    {quest.username}
-                  </Text>
-                  <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
-                </View>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-
-          <View style={styles.commentCard}>
-            <Text
-              style={{
-                color: "#506150ff",
-                fontWeight: "bold",
-              }}
-            >
-              Comments
-            </Text>
-            <View
-              style={{
-                borderBottomColor: "#506150ff",
-                borderBottomWidth: StyleSheet.hairlineWidth,
-              }}
-            />
-            <FlatList
-              data={quest.comments}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <View style={{ marginVertical: 5 }}>
-                  <Text style={{ color: "#506150ff" }}>{item.text}</Text>
-                  <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
-                    -{item.username}
-                  </Text>
-                </View>
-              )}
-            />
-          </View>
+        </View>
+        <View
+          style={{
+            height: "auto",
+            paddingHorizontal: 50,
+            paddingTop: 75,
+            paddingBottom: 15,
+            gap: 5,
+          }}
+        >
           <View
             style={{
               flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: "#84aa82ff",
-              borderBottomLeftRadius: 15,
-              borderBottomRightRadius: 15,
-              marginBottom: 0,
-              height: 40,
-              width: "100%",
+              justifyContent: "space-between",
             }}
           >
-            <TextInput
-              style={[
-                styles.input,
-                {
-                  flex: 1,
-                  marginBottom: 0,
-                  borderBottomLeftRadius: 15,
-                  borderBottomRightRadius: 0,
-                },
-              ]}
-              placeholder="Write a comment or Ask a question!"
-              placeholderTextColor="#475C46"
-            />
-            <Pressable
-              onPress={() => {
-                /* handle comment submit here */
-              }}
-            >
-              <FontAwesome
-                name="arrow-right"
-                size={20}
-                color="white"
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
+              {quest.title}
+            </Text>
+            <FontAwesome name={quest.iconName} color="white" size={20} />
           </View>
-
-          <View style={styles.bottomBar}>
-            <Pressable style={styles.backButton} onPress={() => router.back()}>
-              <Text style={{ color: "#506150ff" }}>Back to Quests</Text>
-            </Pressable>
-            <Pressable style={styles.acceptButton}>
+          <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
+            Reward: {quest.reward}
+          </Text>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 14,
+              textAlign: "justify",
+            }}
+          >
+            {quest.description}
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View style={{ flexDirection: "row", gap: 5 }}>
               <Text style={{ color: "white", fontWeight: "bold" }}>
-                Accept Quest!
+                Posted On:{" "}
               </Text>
-            </Pressable>
+              <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
+            </View>
+            <View style={{ flexDirection: "row", gap: 5 }}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                Ends On:{" "}
+              </Text>
+              <Text style={{ color: "white" }}>{quest.endDate}</Text>
+            </View>
           </View>
-        </Animated.View>
+          <View style={styles.userCard}>
+            <Image
+              style={styles.image}
+              source={require("../../assets/images/image.png")}
+              //placeholder={}
+              contentFit="cover"
+              transition={1000}
+            />
+            <View>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  color: "#506150ff",
+                  fontSize: 12,
+                }}
+              >
+                Quest Posted by:
+              </Text>
+              <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+                {quest.username}
+              </Text>
+              <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.bottomBar}>
+          <Pressable style={styles.backButton} onPress={() => router.back()}>
+            <Text style={{ color: "#042944" }}>Back to Quests</Text>
+          </Pressable>
+          <Pressable style={styles.acceptButton}>
+            <Text style={{ color: "#f2e8b7", fontWeight: "bold" }}>
+              Accept Quest!
+            </Text>
+          </Pressable>
+        </View>
       </View>
-    </>
+    </View>
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    minHeight: "65%",
-    //flexShrink: 1,
-    left: 0,
-    right: 0,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-    padding: 20,
-    paddingTop: 25,
-  },
+  // container: {
+  //   minHeight: "65%",
+  //   //flexShrink: 1,
+  //   left: 0,
+  //   right: 0,
+  //   borderTopLeftRadius: 20,
+  //   borderTopRightRadius: 20,
+  //   shadowColor: "#000",
+  //   shadowOffset: { width: 0, height: -2 },
+  //   shadowOpacity: 0.3,
+  //   shadowRadius: 5,
+  //   elevation: 5,
+  //   padding: 20,
+  //   paddingTop: 25,
+  // },
   gradient: {
     position: "absolute",
     left: 0,
@@ -255,30 +187,36 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   bottomBar: {
-    bottom: 10,
+    bottom: 20,
     left: 0,
     right: 0,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 40,
-    marginTop: 20,
+    paddingHorizontal: 60,
+    marginTop: 15,
   },
   backButton: {
-    backgroundColor: "white",
-    padding: 15,
-    borderRadius: 10,
+    flexShrink: 1,
+    padding: 10,
+    backgroundColor: "#f2efe8",
+    borderWidth: 4,
+    borderColor: "#042944",
+    borderRadius: 5,
   },
   acceptButton: {
-    backgroundColor: "#E84476",
-    padding: 15,
-    borderRadius: 10,
+    flexShrink: 1,
+    padding: 10,
+    backgroundColor: "#042944",
+    borderWidth: 4,
+    borderColor: "#f2efe8",
+    borderRadius: 5,
   },
   userCard: {
     flexDirection: "row",
     backgroundColor: "white",
     padding: 20,
-    borderRadius: 15,
+    borderRadius: 5,
     marginTop: 20,
   },
   image: {
@@ -296,8 +234,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginTop: 10,
-    flex: 1, // <-- allow FlatList to expand and scroll
+    //flex: 1, // <-- allow FlatList to expand and scroll
     paddingBottom: 0,
+    minHeight: 100,
   },
   input: {
     backgroundColor: "#84aa82ff",

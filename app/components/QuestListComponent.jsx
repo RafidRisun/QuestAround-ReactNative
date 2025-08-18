@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import BackgroundSVG from "../../assets/svg/backgroundLudo.svg";
+import BackgroundSVG from "../../assets/svg/fullBack2.svg";
 
 const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   const questListRef = useRef(null);
@@ -45,7 +45,6 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
             width="100%"
             height="100%"
             preserveAspectRatio="xMidYMid slice" // maintain aspect ratio, cover parent
-            style={{ opacity: 0.92 }}
           />
         </View>
         <Text style={{ color: "white", fontSize: "16", fontWeight: "bold" }}>
@@ -62,8 +61,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
           <BackgroundSVG
             width="100%"
             height="100%"
-            preserveAspectRatio="xMidYMid slice" // maintain aspect ratio, cover parent
-            style={{ opacity: 0.92 }}
+            preserveAspectRatio="xMidYMin slice"
           />
         </View>
         <View
@@ -77,13 +75,13 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
           <TextInput
             style={styles.input}
             placeholder="Search for Quests..."
-            placeholderTextColor="#395444"
+            placeholderTextColor="#042944"
           />
         </View>
 
         <Text
           style={{
-            color: "#f2e8b7",
+            color: "#042944",
             paddingLeft: 10,
             margin: 6,
             fontWeight: "bold",
@@ -99,7 +97,13 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
             ref={questListRef}
             renderItem={({ item }) => (
               <Pressable onPress={() => onQuestPress(item)}>
-                <View style={styles.list}>
+                <View
+                  style={
+                    item.id === selectedQuest?.id
+                      ? styles.listSelected
+                      : styles.list
+                  }
+                >
                   <View
                     style={{
                       flexDirection: "row",
@@ -110,7 +114,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
                     <FontAwesome
                       name={item.iconName}
                       color={
-                        item.id === selectedQuest?.id ? "#eb6650" : "white"
+                        item.id === selectedQuest?.id ? "#f2e8b7" : "#042944"
                       }
                       size={14}
                     />
@@ -118,8 +122,16 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
                       <Text
                         style={
                           item.id === selectedQuest?.id
-                            ? { color: "#eb6650", fontWeight: "bold" }
-                            : { color: "white", fontWeight: "bold" }
+                            ? {
+                                color: "#f2e8b7",
+                                fontWeight: "bold",
+                                fontSize: 16,
+                              }
+                            : {
+                                color: "#042944",
+                                fontWeight: "bold",
+                                fontSize: 16,
+                              }
                         }
                       >
                         {item.title}
@@ -127,8 +139,8 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
                       <Text
                         style={
                           item.id === selectedQuest?.id
-                            ? { color: "#eb6650", fontSize: 10 }
-                            : { color: "white", fontSize: 10 }
+                            ? { color: "#f2e8b7", fontSize: 12 }
+                            : { color: "#042944", fontSize: 12 }
                         }
                       >
                         Reward: {item.reward}
@@ -167,7 +179,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               });
             }}
           >
-            <Text style={{ color: "white", fontWeight: "bold" }}>
+            <Text style={{ color: "#ee906f", fontWeight: "bold" }}>
               Post a Quest!
             </Text>
           </Pressable>
@@ -182,7 +194,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               setSelectedQuest(null);
             }}
           >
-            <Text style={{ color: "#439e74" }}>Unselect</Text>
+            <Text style={{ color: "#042944" }}>Unselect</Text>
           </Pressable>
           <Pressable
             style={
@@ -217,11 +229,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#439e74",
-    paddingHorizontal: 60,
+    backgroundColor: "#e8e3d9",
+    paddingHorizontal: 40,
     paddingVertical: 55,
     flex: 1,
     boxSizing: "border-box",
+    borderRadius: 10,
+    overflow: "hidden",
+    borderColor: "#ee906f",
+    borderWidth: 1,
   },
   svgBackground: {
     position: "absolute",
@@ -231,28 +247,45 @@ const styles = StyleSheet.create({
     bottom: 0,
     padding: 0,
     margin: 0,
+    padding: 2,
   },
   input: {
     padding: 8,
-    paddingLeft: 30,
     height: 40,
     width: "100%",
-    backgroundColor: "#f7ce56",
+    backgroundColor: "#e8e3d9",
     borderWidth: 2,
-    borderColor: "#f2e8b7",
+    borderColor: "#042944",
+    borderRadius: 3,
   },
   list: {
     width: "100%",
-    padding: 10,
+    paddingVertical: 5,
     paddingHorizontal: 20,
     marginVertical: 4,
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
     justifyContent: "space-between",
-    backgroundColor: "#1e5382",
-    borderWidth: 2,
-    borderColor: "#f2e8b7",
+    backgroundColor: "#ee906f",
+    borderBottomWidth: 5,
+    borderColor: "#042944",
+    borderRadius: 3,
+  },
+  listSelected: {
+    width: "100%",
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    marginVertical: 4,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    justifyContent: "space-between",
+    backgroundColor: "#ff8b61ff",
+    borderBottomWidth: 5,
+    borderTopWidth: 1,
+    borderColor: "#042944",
+    borderRadius: 3,
   },
   bottomBar: {
     position: "absolute",
@@ -277,9 +310,10 @@ const styles = StyleSheet.create({
   postButton: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#439e74",
+    backgroundColor: "#f2efe8",
     borderWidth: 4,
-    borderColor: "#f2e8b7",
+    borderColor: "#ee906f",
+    borderRadius: 5,
   },
   postButtonSelected: {
     display: "none",
@@ -290,9 +324,10 @@ const styles = StyleSheet.create({
   goToQuestbuttonSelected: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#439e74",
+    backgroundColor: "#ee906f",
     borderWidth: 4,
-    borderColor: "#f2e8b7",
+    borderColor: "#042944",
+    borderRadius: 5,
   },
   unselectbutton: {
     display: "none",
@@ -300,9 +335,10 @@ const styles = StyleSheet.create({
   unselectbuttonSelected: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#f2e8b7",
+    backgroundColor: "#f2efe8",
     borderWidth: 4,
-    borderColor: "#439e74",
+    borderColor: "#ee906f",
+    borderRadius: 5,
   },
 });
 
