@@ -10,7 +10,7 @@ import {
   Text,
   View,
 } from "react-native";
-import TallBackSVG from "../../assets/svg/whiteFrame.svg";
+import TallBackSVG from "../../assets/svg/tallBack2.svg";
 
 export default function QuestDetails() {
   const { data } = useLocalSearchParams();
@@ -49,7 +49,7 @@ export default function QuestDetails() {
         style={{
           width: "100%",
           minHeight: "20%",
-          backgroundColor: "#ee906f",
+          backgroundColor: "#f2efe8",
           borderRadius: 10,
         }}
       >
@@ -86,17 +86,19 @@ export default function QuestDetails() {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
+            <Text
+              style={{ color: "#042944", fontSize: 20, fontWeight: "bold" }}
+            >
               {quest.title}
             </Text>
-            <FontAwesome name={quest.iconName} color="white" size={20} />
+            <FontAwesome name={quest.iconName} color="#042944" size={20} />
           </View>
-          <Text style={{ color: "white", fontSize: 12, fontWeight: "bold" }}>
+          <Text style={{ color: "#042944", fontSize: 12, fontWeight: "bold" }}>
             Reward: {quest.reward}
           </Text>
           <Text
             style={{
-              color: "white",
+              color: "#042944",
               fontSize: 14,
               textAlign: "justify",
             }}
@@ -110,16 +112,16 @@ export default function QuestDetails() {
             }}
           >
             <View style={{ flexDirection: "row", gap: 5 }}>
-              <Text style={{ color: "white", fontWeight: "bold" }}>
+              <Text style={{ color: "#042944", fontWeight: "bold" }}>
                 Posted On:{" "}
               </Text>
-              <Text style={{ color: "white" }}>{quest.postedOn.date}</Text>
+              <Text style={{ color: "#042944" }}>{quest.postedOn.date}</Text>
             </View>
             <View style={{ flexDirection: "row", gap: 5 }}>
-              <Text style={{ color: "white", fontWeight: "bold" }}>
+              <Text style={{ color: "#042944", fontWeight: "bold" }}>
                 Ends On:{" "}
               </Text>
-              <Text style={{ color: "white" }}>{quest.endDate}</Text>
+              <Text style={{ color: "#042944" }}>{quest.endDate}</Text>
             </View>
           </View>
           <View style={styles.userCard}>
@@ -134,16 +136,16 @@ export default function QuestDetails() {
               <Text
                 style={{
                   fontWeight: "bold",
-                  color: "#506150ff",
+                  color: "#f2efe8",
                   fontSize: 12,
                 }}
               >
                 Quest Posted by:
               </Text>
-              <Text style={{ fontWeight: "bold", color: "#506150ff" }}>
+              <Text style={{ fontWeight: "bold", color: "#f2efe8" }}>
                 {quest.username}
               </Text>
-              <Text style={{ color: "#506150ff" }}>{quest.address}</Text>
+              <Text style={{ color: "#f2efe8" }}>{quest.address}</Text>
             </View>
           </View>
         </View>
@@ -152,7 +154,7 @@ export default function QuestDetails() {
             <Text style={{ color: "#042944" }}>Back to Quests</Text>
           </Pressable>
           <Pressable style={styles.acceptButton}>
-            <Text style={{ color: "#f2e8b7", fontWeight: "bold" }}>
+            <Text style={{ color: "#042944", fontWeight: "bold" }}>
               Accept Quest!
             </Text>
           </Pressable>
@@ -162,21 +164,6 @@ export default function QuestDetails() {
   );
 }
 const styles = StyleSheet.create({
-  // container: {
-  //   minHeight: "65%",
-  //   //flexShrink: 1,
-  //   left: 0,
-  //   right: 0,
-  //   borderTopLeftRadius: 20,
-  //   borderTopRightRadius: 20,
-  //   shadowColor: "#000",
-  //   shadowOffset: { width: 0, height: -2 },
-  //   shadowOpacity: 0.3,
-  //   shadowRadius: 5,
-  //   elevation: 5,
-  //   padding: 20,
-  //   paddingTop: 25,
-  // },
   gradient: {
     position: "absolute",
     left: 0,
@@ -207,14 +194,14 @@ const styles = StyleSheet.create({
   acceptButton: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#042944",
+    backgroundColor: "#ee906f",
     borderWidth: 4,
-    borderColor: "#f2efe8",
+    borderColor: "#042944",
     borderRadius: 5,
   },
   userCard: {
     flexDirection: "row",
-    backgroundColor: "white",
+    backgroundColor: "#042944",
     padding: 20,
     borderRadius: 5,
     marginTop: 20,
@@ -225,11 +212,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: "#84aa82ff",
-    backgroundColor: "#96c294",
+    borderColor: "#f2efe8",
+    backgroundColor: "#f2efe8",
   },
   commentCard: {
-    backgroundColor: "white",
+    backgroundColor: "#042944",
     padding: 15,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -240,7 +227,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#84aa82ff",
-    color: "white",
+    color: "#042944",
     padding: 8,
     paddingLeft: 20,
     borderColor: "#475C46",

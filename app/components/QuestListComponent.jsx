@@ -214,7 +214,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               });
             }}
           >
-            <Text style={{ color: "#f2e8b7", fontWeight: "bold" }}>
+            <Text style={{ color: "#042944", fontWeight: "bold" }}>
               Go to Quest!
             </Text>
           </Pressable>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#e8e3d9",
+    backgroundColor: "#f2efe8",
     paddingHorizontal: 40,
     paddingVertical: 55,
     flex: 1,
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#f2efe8",
     borderWidth: 4,
-    borderColor: "#ee906f",
+    borderColor: "#042944",
     borderRadius: 5,
   },
 });
