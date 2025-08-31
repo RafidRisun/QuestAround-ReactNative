@@ -221,7 +221,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
               });
             }}
           >
-            <Text style={{ color: "#042944", fontWeight: "bold" }}>
+            <Text style={{ color: "#ee906f", fontWeight: "bold" }}>
               Go to Quest!
             </Text>
           </Pressable>
@@ -317,10 +317,10 @@ const styles = StyleSheet.create({
   postButton: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#f2efe8",
-    borderWidth: 4,
+    backgroundColor: "#042944",
+    borderBottomWidth: 4,
     borderColor: "#ee906f",
-    borderRadius: 5,
+    borderRadius: 3,
   },
   postButtonSelected: {
     display: "none",
@@ -331,10 +331,10 @@ const styles = StyleSheet.create({
   goToQuestbuttonSelected: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#ee906f",
-    borderWidth: 4,
-    borderColor: "#042944",
-    borderRadius: 5,
+    backgroundColor: "#042944",
+    borderBottomWidth: 4,
+    borderColor: "#ee906f",
+    borderRadius: 3,
   },
   unselectbutton: {
     display: "none",
@@ -342,10 +342,10 @@ const styles = StyleSheet.create({
   unselectbuttonSelected: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#f2efe8",
-    borderWidth: 4,
+    backgroundColor: "#ee906f",
+    borderBottomWidth: 4,
     borderColor: "#042944",
-    borderRadius: 5,
+    borderRadius: 3,
   },
 });
 

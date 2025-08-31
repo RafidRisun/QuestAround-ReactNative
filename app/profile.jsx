@@ -163,20 +163,28 @@ const Profile = () => {
               >
                 <View
                   style={{
-                    borderRadius: 5,
+                    flexShrink: 1,
                     padding: 10,
-                    borderWidth: 1,
-                    borderColor: "#0429444d",
-                    marginBottom: 3,
+                    backgroundColor: "#042944",
+                    borderBottomWidth: 4,
+                    borderColor: "#ee906f",
+                    borderRadius: 3,
+                    marginBottom: 5,
                   }}
                 >
-                  <Text style={{ color: "#042944", fontSize: 15 }}>
+                  <Text
+                    style={{
+                      color: "#ee906f",
+                      fontSize: 15,
+                      fontWeight: "bold",
+                    }}
+                  >
                     {item.activity.name}
                   </Text>
-                  <Text style={{ color: "#042944", fontSize: 12 }}>
+                  <Text style={{ color: "#ee906f", fontSize: 12 }}>
                     Status: {item.status}
                   </Text>
-                  <Text style={{ color: "#042944", fontSize: 12 }}>
+                  <Text style={{ color: "#ee906f", fontSize: 12 }}>
                     Joined At: {item.joined_at.toLocaleString()}
                   </Text>
                 </View>
@@ -209,10 +217,10 @@ const styles = StyleSheet.create({
   backButton: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#f2efe8",
-    borderWidth: 4,
+    backgroundColor: "#ee906f",
+    borderBottomWidth: 4,
     borderColor: "#042944",
-    borderRadius: 5,
+    borderRadius: 3,
   },
 });
 

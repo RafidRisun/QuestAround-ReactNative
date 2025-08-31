@@ -154,7 +154,7 @@ export default function QuestDetails() {
             <Text style={{ color: "#042944" }}>Back to Quests</Text>
           </Pressable>
           <Pressable style={styles.acceptButton}>
-            <Text style={{ color: "#042944", fontWeight: "bold" }}>
+            <Text style={{ color: "#ee906f", fontWeight: "bold" }}>
               Accept Quest!
             </Text>
           </Pressable>
@@ -177,18 +177,18 @@ const styles = StyleSheet.create({
   backButton: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#f2efe8",
-    borderWidth: 4,
+    backgroundColor: "#ee906f",
+    borderBottomWidth: 4,
     borderColor: "#042944",
-    borderRadius: 5,
+    borderRadius: 3,
   },
   acceptButton: {
     flexShrink: 1,
     padding: 10,
-    backgroundColor: "#ee906f",
-    borderWidth: 4,
-    borderColor: "#042944",
-    borderRadius: 5,
+    backgroundColor: "#042944",
+    borderBottomWidth: 4,
+    borderColor: "#ee906f",
+    borderRadius: 3,
   },
   userCard: {
     flexDirection: "row",

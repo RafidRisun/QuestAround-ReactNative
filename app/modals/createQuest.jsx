@@ -345,8 +345,8 @@ export default function CreateQuest() {
             <Pressable style={styles.backButton} onPress={() => router.back()}>
               <Text style={{ color: "#042944" }}>Back to Quests</Text>
             </Pressable>
-            <Pressable style={styles.PostButton}>
-              <Text style={{ color: "#f2efe8", fontWeight: "bold" }}>
+            <Pressable style={styles.postButton}>
+              <Text style={{ color: "#ee906f", fontWeight: "bold" }}>
                 Post Quest!
               </Text>
             </Pressable>
@@ -372,17 +372,17 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     padding: 10,
     backgroundColor: "#ee906f",
-    borderWidth: 4,
+    borderBottomWidth: 4,
     borderColor: "#042944",
-    borderRadius: 5,
+    borderRadius: 3,
   },
-  PostButton: {
+  postButton: {
     flexShrink: 1,
     padding: 10,
     backgroundColor: "#042944",
-    borderWidth: 4,
+    borderBottomWidth: 4,
     borderColor: "#ee906f",
-    borderRadius: 5,
+    borderRadius: 3,
   },
   input: {
     backgroundColor: "white",

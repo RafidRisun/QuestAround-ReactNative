@@ -1,6 +1,6 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const Options = () => {
   const router = useRouter();
@@ -10,12 +10,6 @@ const Options = () => {
       <Pressable style={{ flex: 1 }} onPress={() => router.back()}></Pressable>
       <View style={styles.container}>
         <View style={styles.optionCard}>
-          <View>
-            <Image
-              source={require("../../assets/images/image.png")}
-              style={{ width: 60, height: 60, alignSelf: "center" }}
-            />
-          </View>
           <Pressable
             style={styles.optionList}
             onPress={() => router.push("../profile")}
@@ -29,15 +23,6 @@ const Options = () => {
           >
             <FontAwesome name="gear" size={24} color="#042944" />
             <Text style={{ color: "#042944", fontSize: 12 }}>Settings</Text>
-          </Pressable>
-          <Pressable
-            style={styles.optionList}
-            onPress={() => router.push("/questHistory")}
-          >
-            <FontAwesome name="clock-rotate-left" size={24} color="#042944" />
-            <Text style={{ color: "#042944", fontSize: 12 }}>
-              Quest History
-            </Text>
           </Pressable>
           <Pressable
             style={styles.optionList}
@@ -78,18 +63,19 @@ const styles = StyleSheet.create({
     borderColor: "#ee906f",
     borderWidth: 1,
     borderRadius: 5,
-    padding: 20,
+    padding: 10,
     gap: 10,
   },
   optionList: {
     padding: 10,
     paddingLeft: 20,
     borderRadius: 3,
-    backgroundColor: "#ee916f34",
-    // borderBottomWidth: 2,
-    // borderBottomColor: "#042944",
+    backgroundColor: "#ee916fff",
+    borderBottomWidth: 3,
+    borderBottomColor: "#042944",
     flexDirection: "row",
     alignItems: "center",
+    //justifyContent: "center",
     gap: 10,
   },
 });
