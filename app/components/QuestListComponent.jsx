@@ -25,6 +25,13 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
         index: data.findIndex((q) => q.id === quest.id),
         animated: true,
       });
+      router.navigate({
+        pathname: "/modals/questDetails",
+        params: {
+          //id: selectedQuest.id,
+          data: JSON.stringify(data.find((q) => q.id === quest.id)),
+        },
+      });
     }
   };
 
@@ -89,7 +96,7 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
         >
           Quests Nearby!
         </Text>
-        <View style={{ height: 230, overflow: "hidden" }}>
+        <View style={{ height: 230, overflow: "scroll" }}>
           <FlatList
             data={data}
             keyExtractor={(item) => item.id.toString()}
@@ -229,7 +236,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "#f2efe8",
+    //backgroundColor: "#f2efe8",
     paddingHorizontal: 40,
     paddingVertical: 55,
     flex: 1,
@@ -247,7 +254,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     padding: 0,
     margin: 0,
-    padding: 2,
+    //padding: 2,
   },
   input: {
     padding: 8,

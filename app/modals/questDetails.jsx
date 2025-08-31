@@ -164,15 +164,6 @@ export default function QuestDetails() {
   );
 }
 const styles = StyleSheet.create({
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
   bottomBar: {
     bottom: 20,
     left: 0,

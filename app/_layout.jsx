@@ -80,6 +80,12 @@ export default function RootLayout() {
             presentation: "modal",
           }}
         />
+        <Stack.Screen
+          name="modals/questHistory"
+          options={{
+            presentation: "transparentModal",
+          }}
+        />
       </Stack>
     </View>
   );

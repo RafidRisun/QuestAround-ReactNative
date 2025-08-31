@@ -154,9 +154,9 @@ const Profile = () => {
                 key={item.id} // Move key here!
                 onPress={() => {
                   router.navigate({
-                    pathname: "/modals/questDetails",
+                    pathname: "/modals/questHistory",
                     params: {
-                      id: key,
+                      id: item.id,
                     },
                   });
                 }}
@@ -165,8 +165,9 @@ const Profile = () => {
                   style={{
                     borderRadius: 5,
                     padding: 10,
-                    borderBottomWidth: 1,
-                    borderBottomColor: "#042944",
+                    borderWidth: 1,
+                    borderColor: "#0429444d",
+                    marginBottom: 3,
                   }}
                 >
                   <Text style={{ color: "#042944", fontSize: 15 }}>
@@ -183,21 +184,35 @@ const Profile = () => {
             ))}
           </ScrollView>
         </View>
-        <Pressable onPress={() => router.back()}>
-          <Text style={{ color: "#506150ff" }}>Back to Quests</Text>
-        </Pressable>
+        <View style={styles.bottomBar}>
+          <Pressable style={styles.backButton} onPress={() => router.back()}>
+            <Text style={{ color: "#042944" }}>Return</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  gradient: {
+  bottomBar: {
     position: "absolute",
+    bottom: 20,
     left: 0,
     right: 0,
-    top: 0,
-    bottom: 0,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 60,
+    marginTop: 15,
+  },
+  backButton: {
+    flexShrink: 1,
+    padding: 10,
+    backgroundColor: "#f2efe8",
+    borderWidth: 4,
+    borderColor: "#042944",
+    borderRadius: 5,
   },
 });
 
