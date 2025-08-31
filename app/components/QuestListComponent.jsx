@@ -1,23 +1,28 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  FlatList,
   Keyboard,
   KeyboardAvoidingView,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import BackgroundSVG from "../../assets/svg/fullBack2.svg";
+import BackgroundSVG from "../../assets/svg/full3.svg";
 
 const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
   const questListRef = useRef(null);
   const router = useRouter();
-  //data = null;
+  const [currentCategory, setCurrentCategory] = useState("All");
+
+  const filteredData =
+    currentCategory === "All"
+      ? data
+      : data.filter((item) => item.category === currentCategory);
+
   const onQuestPress = (quest) => {
     setSelectedQuest(quest);
     if (questListRef.current) {
@@ -73,17 +78,46 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
         </View>
         <View
           style={{
-            height: 50,
+            height: 40,
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
+            //backgroundColor: "red",
+            paddingEnd: 5,
           }}
         >
-          <TextInput
-            style={styles.input}
-            placeholder="Search for Quests..."
-            placeholderTextColor="#042944"
-          />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              flexDirection: "row",
+              alignItems: "center",
+              paddingHorizontal: 10,
+            }}
+            style={{ width: "100%" }}
+          >
+            {categories.map((category) => (
+              <Pressable
+                key={category.id}
+                style={{ marginHorizontal: 4 }}
+                onPress={() => {
+                  setCurrentCategory(category.name);
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#ee906f",
+                    borderRadius: 2,
+                    padding: 5,
+                    borderBottomWidth: 1,
+                    borderColor: "#042944",
+                  }}
+                >
+                  <Text style={{ color: "white" }}>{category.name}</Text>
+                </View>
+              </Pressable>
+            ))}
+          </ScrollView>
         </View>
 
         <Text
@@ -97,13 +131,12 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
           Quests Nearby!
         </Text>
         <View style={{ height: 230, overflow: "scroll" }}>
-          <FlatList
-            data={data}
-            keyExtractor={(item) => item.id.toString()}
+          <ScrollView
+            style={{ height: 230 }}
             contentContainerStyle={{ paddingBottom: 80 }}
-            ref={questListRef}
-            renderItem={({ item }) => (
-              <Pressable onPress={() => onQuestPress(item)}>
+          >
+            {filteredData.map((item) => (
+              <Pressable key={item.id} onPress={() => onQuestPress(item)}>
                 <View
                   style={
                     item.id === selectedQuest?.id
@@ -169,8 +202,8 @@ const QuestListComponent = ({ selectedQuest, setSelectedQuest, data }) => {
                   )}
                 </View>
               </Pressable>
-            )}
-          />
+            ))}
+          </ScrollView>
         </View>
 
         <View
@@ -254,7 +287,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     padding: 0,
     margin: 0,
-    //padding: 2,
+    padding: 2,
   },
   input: {
     padding: 8,
@@ -350,3 +383,14 @@ const styles = StyleSheet.create({
 });
 
 export default QuestListComponent;
+
+const categories = [
+  { id: 1, name: "All" },
+  { id: 2, name: "Studies and Tutoring" },
+  { id: 3, name: "Social and Community" },
+  { id: 4, name: "Service Providing" },
+  { id: 5, name: "Household and Errands" },
+  { id: 6, name: "Events" },
+  { id: 7, name: "Delivery" },
+  { id: 8, name: "Shopping" },
+];

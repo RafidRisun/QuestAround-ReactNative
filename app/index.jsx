@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
   },
 });
 
+// Example data array with updated categories
 const data = [
   {
     id: 1,
     title: "Help me clean up the park!",
-    description:
-      "We’re organizing a weekend park clean-up and need volunteers to help collect trash and make the park beautiful again. Let’s make our community greener together!",
+    description: "...",
     reward: "100 Taka",
     location: [23.749907, 90.41976],
     iconName: "leaf",
@@ -59,22 +59,17 @@ const data = [
     postedOn: { date: "2025-07-29", time: "10:00 AM" },
     endDate: "2025-08-01",
     comments: [
-      { username: "helper1", text: "Excited to join!" },
-      { username: "natureFan", text: "Will bring gloves and bags." },
-      { username: "mathWhiz", text: "I can help after school." },
-      { username: "mathWhiz", text: "I can help after school." },
-      { username: "mathWhiz", text: "I can help after school." },
-      { username: "mathWhiz", text: "I can help after school." },
+      /* ... */
     ],
     status: "Available",
     type: "event",
     femaleOnly: false,
+    category: "Social and Community",
   },
   {
     id: 2,
     title: "Help me with my homework!",
-    description:
-      "Need someone patient to help explain some tough math and science concepts this week. Ideal for a college student or tutor who loves teaching kids.",
+    description: "...",
     reward: "200 Taka",
     location: [23.749023, 90.422419],
     iconName: "book",
@@ -86,16 +81,18 @@ const data = [
     age: 16,
     postedOn: { date: "2025-07-28", time: "6:30 PM" },
     endDate: "2025-08-03",
-    comments: [{ username: "mathWhiz", text: "I can help after school." }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "quest",
     femaleOnly: false,
+    category: "Studies and Tutoring",
   },
   {
     id: 3,
     title: "Help me find my lost dog!",
-    description:
-      "My small brown dog went missing near the lake yesterday evening. Please help look around the neighborhood or share any sightings. Reward guaranteed!",
+    description: "...",
     reward: "50 Taka",
     location: [23.75, 90.42],
     iconName: "paw",
@@ -107,16 +104,18 @@ const data = [
     age: 28,
     postedOn: { date: "2025-07-27", time: "8:00 PM" },
     endDate: "2025-08-02",
-    comments: [{ username: "petFriend", text: "I'll keep an eye out!" }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "event",
     femaleOnly: false,
+    category: "Service Providing",
   },
   {
     id: 4,
     title: "Help me with my shopping!",
-    description:
-      "Need a hand carrying groceries from the market this Friday evening. It’s a short walk, but the bags get pretty heavy. Friendly help appreciated!",
+    description: "...",
     reward: "100 Taka",
     location: [23.748, 90.421],
     iconName: "shopping-cart",
@@ -128,16 +127,18 @@ const data = [
     age: 34,
     postedOn: { date: "2025-07-29", time: "2:00 PM" },
     endDate: "2025-08-01",
-    comments: [{ username: "strongArms", text: "I can help after work." }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "quest",
     femaleOnly: true,
+    category: "Shopping",
   },
   {
     id: 5,
     title: "Help me with my garden!",
-    description:
-      "Looking for someone to help replant flowers and trim bushes this weekend. Great chance to enjoy fresh air and help beautify my small home garden.",
+    description: "...",
     reward: "150 Taka",
     location: [23.747, 90.42],
     iconName: "seedling",
@@ -149,16 +150,18 @@ const data = [
     age: 42,
     postedOn: { date: "2025-07-30", time: "9:00 AM" },
     endDate: "2025-08-04",
-    comments: [{ username: "plantLover", text: "I love gardening!" }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "quest",
     femaleOnly: false,
+    category: "Household and Errands",
   },
   {
     id: 6,
     title: "Help me with my cooking!",
-    description:
-      "Need an extra pair of hands to help prepare ingredients for a family gathering this Saturday. Chopping, mixing, and maybe some taste testing too!",
+    description: "...",
     reward: "80 Taka",
     location: [23.746, 90.419],
     iconName: "kitchen-set",
@@ -170,16 +173,18 @@ const data = [
     age: 30,
     postedOn: { date: "2025-07-30", time: "11:30 AM" },
     endDate: "2025-08-02",
-    comments: [{ username: "foodie", text: "Count me in for taste testing!" }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "quest",
     femaleOnly: true,
+    category: "Household and Errands",
   },
   {
     id: 7,
     title: "Help me with my event!",
-    description:
-      "Looking for volunteers to help organize a community event this weekend. Tasks include setting up, managing activities, and cleaning up afterward.",
+    description: "...",
     reward: "100 Taka",
     location: [24.3746, 88.6004],
     iconName: "star",
@@ -192,17 +197,17 @@ const data = [
     postedOn: { date: "2025-07-30", time: "11:30 AM" },
     endDate: "2025-08-02",
     comments: [
-      { username: "volunteer1", text: "Count me in for helping out!" },
+      /* ... */
     ],
     status: "Available",
     type: "event",
     femaleOnly: false,
+    category: "Events",
   },
   {
     id: 8,
     title: "Help me paint my house!",
-    description:
-      "Looking for someone to help paint the walls of my living room this weekend. Paint and brushes will be provided. Great opportunity for creative minds!",
+    description: "...",
     reward: "200 Taka",
     location: [23.7868, 90.4011],
     iconName: "paint-brush",
@@ -214,16 +219,18 @@ const data = [
     age: 35,
     postedOn: { date: "2025-08-01", time: "9:00 AM" },
     endDate: "2025-08-05",
-    comments: [{ username: "artLover", text: "I can help with designs!" }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "quest",
     femaleOnly: false,
+    category: "Household and Errands",
   },
   {
     id: 9,
     title: "Help me fix my garden fence!",
-    description:
-      "My garden fence is broken and needs fixing. Looking for someone handy with tools to help repair it this Friday afternoon.",
+    description: "...",
     reward: "150 Taka",
     location: [23.7875, 90.4026],
     iconName: "hammer",
@@ -235,16 +242,18 @@ const data = [
     age: 28,
     postedOn: { date: "2025-08-02", time: "3:00 PM" },
     endDate: "2025-08-06",
-    comments: [{ username: "toolExpert", text: "I can bring my toolkit!" }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "event",
     femaleOnly: false,
+    category: "Household and Errands",
   },
   {
     id: 10,
     title: "Help me organize my books!",
-    description:
-      "I have a large collection of books that need organizing by genre and author. Looking for someone who loves books and has an eye for detail.",
+    description: "...",
     reward: "100 Taka",
     location: [23.7883, 90.4014],
     iconName: "book",
@@ -256,9 +265,12 @@ const data = [
     age: 22,
     postedOn: { date: "2025-08-01", time: "10:00 AM" },
     endDate: "2025-08-04",
-    comments: [{ username: "libraryFan", text: "I love organizing books!" }],
+    comments: [
+      /* ... */
+    ],
     status: "Available",
     type: "quest",
     femaleOnly: false,
+    category: "Studies and Tutoring",
   },
 ];
